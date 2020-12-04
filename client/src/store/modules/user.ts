@@ -27,7 +27,7 @@ const user: Module<State, any> = {
     }
   },
   actions: {
-    login({ commit }, data: obj) {
+    async login({ commit }, data: obj) {
       return new Promise((resolve, reject) => {
         UserData.login(data).then((res: Result<UserLoginResp>) => {
           setRemember(data.remember ? 1 : 0) // 记住我
@@ -45,7 +45,7 @@ const user: Module<State, any> = {
         }, err => reject(err))
       })
     },
-    logout({ commit }) {
+    async logout({ commit }) {
       commit('setToken', '')
       storageClear()
     }

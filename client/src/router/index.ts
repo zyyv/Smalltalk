@@ -35,13 +35,23 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  // const hasToken = getToken()
-  // console.log(hasToken);
-  // if (hasToken) {
-  next()
-  // } else {
-  // next({ path: '/login' })
-  // }
+  const hasToken = getToken()
+  if (hasToken) {
+    if (to.fullPath === '/login') {
+      next({ path: '/' })
+    } else {
+      if (!to.matched.length) {
+        next({ path: '/404' })
+      }
+      next()
+    }
+  } else {
+    if (to.fullPath === '/login') {
+      next() // 判断是否是 /login 跳 /login 防止无线递归循环
+    } else {
+      next({ path: '/login' })
+    }
+  }
 })
 
 export default router

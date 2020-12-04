@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { message } from 'ant-design-vue'
 import type { Result } from './type'
-import { getToken } from '/@/utils/auth'
+import { getToken, removeToken } from '/@/utils/auth'
+import router from "/@/router"
 
 const instance = axios.create({
   baseURL: '/api',
@@ -26,7 +27,7 @@ instance.interceptors.request.use(
 // 添加响应拦截器
 instance.interceptors.response.use(
   res => {
-    if (res.status === 200 && res.data && res.data.status === 200) {
+    if (res.data && res.data.status === 200) {
       return Promise.resolve(res)
     } else {
       message.error(res.data.msg)
@@ -38,9 +39,13 @@ instance.interceptors.response.use(
       switch (error.response.status) {
         case 401:
           message.warning('请先登录后操作')
+          removeToken()
+          router.push('/login')
           break
         case 403:
           message.warning('登录过期，请重新登录')
+          removeToken()
+          router.push('/login')
           break
         case 404:
           message.error('网络请求不存在')

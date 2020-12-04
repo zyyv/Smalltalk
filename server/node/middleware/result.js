@@ -1,9 +1,10 @@
 const error = async (ctx, next) => {
   try {
     await next()
-  } catch ({ status = 500, message = 'Server internal error' }) {
+  } catch ({ status = 500, message, same = true, originalError }) {
+    if (same) ctx.status = status
     ctx.body = {
-      msg: message,
+      msg: originalError ? originalError.message : message,
       status
     }
   }

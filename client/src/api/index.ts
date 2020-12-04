@@ -1,8 +1,8 @@
 import { httpGet, httpPost } from "./axios"
 export const UserData = {
   // 获取验证码
-  sendSms: async () => {
-    return httpGet('/user/sendSmsCode')
+  sendSms: async (data: object) => {
+    return httpPost('/user/sendSmsCode', data)
   },
   login: async (data: object) => {
     return httpPost('/user/login', data)

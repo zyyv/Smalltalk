@@ -4,7 +4,7 @@ export declare interface obj {
 
 export declare interface Result<T = any> {
   msg: string;
-  data: T;
+  data?: T;
   status: number;
 }
 

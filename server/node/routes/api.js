@@ -9,19 +9,21 @@ router.post('/user/login', UserCtrl.login)
 router.post('/user/update', UserCtrl.update)
 router.post('/user/remove', UserCtrl.remove)
 router.get('/user/list', UserCtrl.list)
+router.post('/user/sendSmsCode', UserCtrl.sendSmsCode)
+
 
 router.get('/', async (ctx) => {
-  // console.log(ctx.state.user._id)
-  // console.log(JWT.generateToken({ _id: 'xxxx' }))
+  // console.log(ctx.state)
+
   // throw new Error('test error')
+  // ctx.status = 504
+  // const err = new Error('test error')
+  // err.status = 504
+  // throw err
   ctx.body = {
     msg: 'hello koa'
   }
 })
-router.get('/user/sendSmsCode', async (ctx) => {
-  const code = String(Math.random()).substring(2, 6)
-  const text = `【SmallTalk】您的验证码为：${code}，请及时输入验证。`
-  return ctx.body = { code, text }
-})
+
 
 module.exports = router

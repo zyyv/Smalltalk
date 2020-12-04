@@ -96,7 +96,7 @@
                   d="M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z" />
           </svg>
         </a-button>
-        <a-button @click="link('/login')"
+        <a-button @click="logOut"
                   class="btnItem">
           <span>Logout</span>
           <svg style="transform: rotate(90deg)"
@@ -117,19 +117,25 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { ref, reactive, computed } from 'vue'
 import Avatar from "/@c/Avatar.vue"
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+import { httpGet } from '../../api/axios'
 export default {
   name: 'profile',
   components: { Avatar },
   setup () {
     const store = useStore()
     const router = useRouter()
+    const logOut = async ()=>{
+      await store.dispatch('user/logout')
+      router.push('/login')
+    }
     const link = path => router.push(path)
-    return { link, userInfo: computed(() => store.state.user.userInfo) }
+
+    return { link, logOut, userInfo: computed(() => store.state.user.userInfo) }
   },
 }
 </script>

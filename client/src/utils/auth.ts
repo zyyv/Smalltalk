@@ -1,9 +1,9 @@
-export const storageClear = () => {
-  localStorage.clear()
-  sessionStorage.clear()
-}
 export const localClear = () => localStorage.clear()
 export const sessionClear = () => sessionStorage.clear()
+export const storageClear = () => {
+  localClear()
+  sessionClear()
+}
 
 export const getRemember = () => Number(localStorage.getItem('remember'))
 export const setRemember = (remember: number = 1) => localStorage.setItem('remember', String(remember))

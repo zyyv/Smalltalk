@@ -80,11 +80,7 @@ function useSmscode(num: number, phone: Ref<string>) {
         timer = null
       }
     }, 1000)
-    UserData.sendSms().then((res: Result) => {
-      sessionStorage.setItem('smsCode', res.data.code)
-      setTimeout(() => {
-        sessionStorage.removeItem('smsCode')
-      }, 1000 * 60 * 2) // 2分钟清除验证码
+    UserData.sendSms({ phone:phone.value }).then((res: Result) => {
       message.info(res.data.text, 5)
     })
   }
@@ -133,11 +129,6 @@ function useLogin() {
       if (!state.form.code) {
         state.loading = false
         message.error('请输入验证码')
-        return
-      }
-      if (state.form.code !== sessionStorage.getItem('smsCode')) {
-        state.loading = false
-        message.error('请输入正确的验证码')
         return
       }
     } else {
