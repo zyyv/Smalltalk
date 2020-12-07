@@ -5,12 +5,11 @@ const { key } = require('../utils/jwt')
 const unlessRoutes = require('../config/unless')
 const { success } = require('../middleware/result')
 const api = require('./api')
-// const web = require('./web')
+const client = require('./client')
 
-router.use(success)
+router.use('/', client.routes(), client.allowedMethods())
 router.use(koaJwt({ secret: key }).unless({
   path: unlessRoutes
 }))
-router.use('/api', api.routes(), api.allowedMethods())
-// router.use('/', web.routes(), web.allowedMethods())
+router.use('/api', success, api.routes(), api.allowedMethods())
 module.exports = router

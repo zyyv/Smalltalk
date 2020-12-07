@@ -3,7 +3,7 @@ const { resolve } = require('path')
 const pathResolve = (src: string) => resolve(__dirname, src)
 
 module.exports = {
-  outDir: pathResolve('../public/web'),
+  outDir: pathResolve('../server/node/public/client'),
   alias: {
     '/@/': pathResolve('src'),
     '/@c/': pathResolve('src/components'),

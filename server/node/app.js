@@ -11,10 +11,10 @@ const path = require('path')
 const { error } = require('./middleware/result')
 
 app.use(error)
-app.use(static(path.resolve(__dirname, '../../public/web')))
 app.use(xmlParser())
 app.use(bodyParser())
 app.use(cors())
+app.use(static(path.resolve(__dirname, './public/client')))
 app.use(router.routes()).use(router.allowedMethods())
 
 const port = 9999
