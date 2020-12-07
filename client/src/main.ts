@@ -5,7 +5,7 @@ import router from './router'
 import store from './store'
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
-// import '/@/styles/main.scss'
+import '/@/styles/main.scss'
 
 
 const app = createApp(App)
