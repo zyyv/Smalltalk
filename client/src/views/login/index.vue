@@ -80,7 +80,7 @@ function useSmscode(num: number, phone: Ref<string>) {
         timer = null
       }
     }, 1000)
-    UserData.sendSms({ phone:phone.value }).then((res: Result) => {
+    UserData.sendSms({ phone: phone.value }).then((res: Result) => {
       message.info(res.data.text, 5)
     })
   }
