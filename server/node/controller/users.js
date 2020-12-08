@@ -16,6 +16,7 @@ const userSchema = new Schema({
   sign: { type: String, default: null },
   admin: { type: Boolean, default: false },
   isnew: { type: Boolean, default: true },
+  sort: { type: Number, default: 100 },
   removed: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
@@ -23,7 +24,8 @@ const userSchema = new Schema({
 const smsCodeSchema = new Schema({
   phone: { type: String, default: null },
   code: { type: String, default: null },
-  expiresIn: { type: Date, default: null }
+  expiresIn: { type: Date, default: null },
+  sort: { type: Number, default: 100 }
 })
 // https://qiniu-shop.zoombin.com/avatar.jpg
 

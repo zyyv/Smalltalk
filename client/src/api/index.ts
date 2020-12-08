@@ -11,3 +11,8 @@ export const UserData = {
     return httpPost('/user/update', data)
   }
 }
+export const ZoneData = {
+  list: async () => {
+    return httpGet('/zone/list')
+  }
+}

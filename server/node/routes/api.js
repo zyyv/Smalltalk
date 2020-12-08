@@ -11,6 +11,12 @@ router.post('/user/remove', UserCtrl.remove)
 router.get('/user/list', UserCtrl.list)
 router.post('/user/sendSmsCode', UserCtrl.sendSmsCode)
 
+const ZoneCtrl = require('../controller/zone')
+router.get('/zone/list', ZoneCtrl.list)
+router.post('/zone/create', ZoneCtrl.create)
+router.post('/zone/createComment', ZoneCtrl.createComment)
+
+
 
 router.get('/', async (ctx) => {
   // console.log(ctx.state)
