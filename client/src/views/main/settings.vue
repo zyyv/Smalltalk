@@ -3,23 +3,35 @@
     <NavHeader title="Settings"
                subTitle='Update your profile details'>
     </NavHeader>
-    <div style="padding:20px 200px">
+    <!-- <div style="padding:20px 200px">
       <Upload />
-
-    </div>
+      <Upload2 v-model:src='form.img' />
+      <a-button @click="click">asd</a-button>
+    </div> -->
   </div>
 </template>
 
 <script lang='ts'>
-import { ref, reactive } from 'vue'
+import { ref, reactive, toRefs } from 'vue'
 import NavHeader from '/@c/NavHeader.vue'
 import Upload from '/@c/Upload/index.vue'
+import Upload2 from '/@c/Upload/SingleImg.vue'
 
 export default {
   name: 'settings',
-  components: { NavHeader, Upload },
+  components: { NavHeader, Upload, Upload2 },
   setup() {
-    return {}
+    const a = reactive({
+      form: {
+        img: '',
+      },
+    })
+    function click() {
+      console.log(a.form.img)
+    }
+    return {
+      ...toRefs(a),click
+    }
   },
 }
 </script>

@@ -7,7 +7,7 @@
         <a-form-item>
           <a-input class="f-input"
                    :maxlength="11"
-                   v-model:value="phone"
+                   v-model:value="form.phone"
                    placeholder="Enter your phone +86" />
         </a-form-item>
         <transition name="fade"
@@ -27,7 +27,7 @@
                      placeholder="Enter your smscode"
                      v-model:value="form.code">
               <template #suffix>
-                <a-button @click="getSmsCode"><span class="gradient-text">{{ codeBtnText }}</span></a-button>
+                <a-button @click="GetSmsCode"><span class="gradient-text">{{ codeBtnText }}</span></a-button>
               </template>
             </a-input>
           </a-form-item>
@@ -64,6 +64,8 @@ import { throttle } from '/@/utils'
 import { storageClear } from '/@/utils/auth'
 import type { Result } from '/@/api/type'
 
+const phoneReg = /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/
+
 function useSmscode(num: number, phone: Ref<string>) {
   const time = ref(num)
   const codeBtnText = ref('Get Smscode')
@@ -84,72 +86,59 @@ function useSmscode(num: number, phone: Ref<string>) {
       message.info(res.data.text, 5)
     })
   }
-  // todo 获取验证码
-  // const throttleGetSmsCode = throttle(() => {
-  //   const phoneRep = /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/
-  //   if (!phoneRep.test(form.value.phone)) {
-  //     message.error('请输入正确的手机号')
-  //     return
-  //   }
-  //   getSmsCode()
-  // }, num * 1000)
-  // console.log(phone)
   const throttleGetSmsCode = throttle(getSmsCode, num * 1000)
-
+  const GetCode = () => {
+    if (!phoneReg.test(phone.value)) {
+      message.error('请输入正确的手机号')
+      return
+    }
+    throttleGetSmsCode()
+  }
   return {
-    getSmsCode: throttleGetSmsCode,
+    GetSmsCode: GetCode,
     codeBtnText,
   }
 }
 
 function useLogin() {
-  const state = reactive({
-    form: {
-      phone: '',
-      pwd: '',
-      remember: true,
-      code: '',
-      type: 'I', // I -> smscode  II -> pwd
-    },
-    loading: false,
+  const form = reactive({
+    phone: '',
+    pwd: '',
+    remember: true,
+    code: '',
+    type: 'I', // I -> smscode  II -> pwd
   })
+  const loading = ref(false)
   const handleTypeChange = () => {
-    state.form.type = state.form.type === 'I' ? 'II' : 'I'
+    form.type = form.type === 'I' ? 'II' : 'I'
   }
   const handleSubmit = (callback: Function) => {
-    state.loading = true
-    const phoneRep = /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/
-    if (!phoneRep.test(state.form.phone)) {
+    loading.value = true
+    if (!phoneReg.test(form.phone)) {
       message.error('请输入正确的手机号')
-      state.loading = false
+      loading.value = false
       return
     }
-    if (state.form.type === 'I') {
+    if (form.type === 'I') {
       // smscode
-      if (!state.form.code) {
-        state.loading = false
+      if (!form.code) {
+        loading.value = false
         message.error('请输入验证码')
         return
       }
     } else {
       // pwd
-      if (!state.form.pwd) {
-        state.loading = false
+      if (!form.pwd) {
+        loading.value = false
         message.error('请输入密码')
         return
       }
     }
-    callback(toRaw(state.form))
-      .then(() => {
-        state.loading = false
-      })
-      .catch((err: Error) => {
-        console.log(err)
-        state.loading = false
-      })
+    callback(toRaw(form)).finally(() => (loading.value = false))
   }
   return {
-    ...toRefs(state),
+    form,
+    loading,
     handleTypeChange,
     handleSubmit,
   }
@@ -165,9 +154,7 @@ export default {
       sessionStorage.removeItem('smsCode')
     })
     const store = useStore()
-    const { form, loading, handleTypeChange, handleSubmit } = useLogin()
-    const phone = toRef(form.value, 'phone')
-    const { getSmsCode, codeBtnText } = useSmscode(30, phone)
+    const { form, handleSubmit, ...rest } = useLogin()
     const login = async (form: object) => store.dispatch('user/login', form)
     const Submit = () => {
       handleSubmit(login)
@@ -175,12 +162,9 @@ export default {
 
     return {
       form,
-      phone,
       Submit,
-      loading,
-      handleTypeChange,
-      codeBtnText,
-      getSmsCode,
+      ...rest,
+      ...useSmscode(30, toRef(form, 'phone')),
     }
   },
 }

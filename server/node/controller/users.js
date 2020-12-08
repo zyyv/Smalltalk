@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 const JWT = require('../utils/jwt')
 const { getRandomNumber, num2Time, useError } = require('../utils')
 const GENDER_ENUM = { male: 'male', female: 'female', unknow: 'unknow' }
-const expMins = 0.1 // 验证码过期时间 分钟
+const expMins = 1 // 验证码过期时间 分钟
 const smsCodeExp = num2Time(expMins)
 
 const userSchema = new Schema({
@@ -67,7 +67,7 @@ module.exports = {
     const { name, pwd, avatar, sign, gender } = ctx.request.body
     const { _id } = ctx.state.user
     let one = await userModel.findById(_id).lean()
-    if (!one) throw useError('无效的_id', 401, false)
+    if (!one) throw useError('账号不存在', 401, false)
     if (name) one.name = name
     if (pwd) one.pwd = pwd
     if (avatar) one.avatar = avatar
@@ -87,7 +87,7 @@ module.exports = {
   async login(ctx) {
     const { phone, code, pwd, type } = ctx.request.body
     const query = { phone }
-    let userInfo = {}
+    let item = {}
     if (type === 'I') { // smscode
       const one = await smsCodeModel.findOne(query)
       if (!one) throw useError('没有下发验证码', 401, false)
@@ -96,25 +96,36 @@ module.exports = {
       const exp = +new Date(one.expiresIn)
       if (now >= exp) throw useError('验证码已过期', 401, false)
       // 验证通过
-      userInfo = await userModel.findOne(query).lean()
-      if (!userInfo) {
+      item = await userModel.findOne(query).lean()
+      if (!item) {
         const one = { phone, isnew: true }
-        userInfo = await userModel.create(one)
+        item = await userModel.create(one)
       }
     } else { // pwd
       if (!pwd) throw useError('请输入密码', 401, false)
-      userInfo = await userModel.findOne(query).lean()
-      if (!userInfo) {
+      item = await userModel.findOne(query).lean()
+      // if (!item) {
+      //   throw useError('用户不存在', 401, false)
+      // } else if (item.pwd !== pwd) throw useError('密码错误', 401, false)
+      if (!item) {
         throw useError('用户不存在', 401, false)
-      } else if (userInfo.pwd !== pwd) throw useError('密码错误', 401, false)
+      } else {
+        if (item.pwd) {
+          if (item.pwd !== pwd) throw useError('密码错误', 401, false)
+        } else {
+          if ('111111' !== pwd) throw useError('密码错误', 401, false)
+        }
+      }
     }
-    const token = JWT.generateToken({ _id: userInfo._id })
-    delete userInfo.pwd
-    delete userInfo.admin
-    delete userInfo._id
-    delete userInfo.removed
-    delete userInfo.createdAt
-    delete userInfo.updatedAt
+    const token = JWT.generateToken({ _id: item._id })
+    const userInfo = {
+      name: item.name,
+      phone: item.phone,
+      gender: item.gender,
+      avatar: item.avatar,
+      sign: item.sign,
+      isnew: item.isnew
+    }
     return ctx.body = { token, userInfo }
   }
 }

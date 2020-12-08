@@ -4,25 +4,8 @@
       <h2 class="title gradient-text">您需要完成以下几步设置，开始使用</h2>
       <a-form layout="vertical">
         <a-form-item>
-          <a-upload v-model:fileList="fileList"
-                    name="avatar"
-                    list-type="picture-card"
-                    class="avatar-uploader"
-                    :class="form.avatar && 'hasSrc'"
-                    :show-upload-list="false"
-                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                    :before-upload="beforeUpload"
-                    @change="handleChange">
-            <div v-if="form.avatar"
-                 :style="{'background-image': `url(${form.avatar})`}"
-                 class="avatar-bg"></div>
-            <div v-else>
-              <!-- todo -->
-              <loading-outlined v-if="loading" />
-              <plus-outlined v-else />
-              <div class="ant-upload-text">Avatar</div>
-            </div>
-          </a-upload>
+          <Avatar v-model:src="form.avatar"
+                  tips="Avatar" />
         </a-form-item>
         <a-form-item label="Name"
                      v-bind="validateInfos.name">
@@ -31,6 +14,13 @@
                    v-model:value="form.name"
                    placeholder="Please Enter your Name" />
         </a-form-item>
+        <!-- <a-form-item label="Pwd"
+                     v-bind="validateInfos.pwd">
+          <a-input class="info-input"
+                   @blur="validate('pwd')"
+                   v-model:value="form.pwd"
+                   placeholder="Please Enter your Pwd" />
+        </a-form-item> -->
         <a-form-item label="Sign">
           <a-input class="info-input"
                    v-model:value="form.sign"
@@ -67,16 +57,15 @@ import { useForm } from '@ant-design-vue/use'
 import { message } from 'ant-design-vue'
 import { PlusOutlined, LoadingOutlined } from '@ant-design/icons-vue'
 import { useStore } from 'vuex'
-import { UserData } from '/@/api'
-import { Result } from '/@/api/type'
 import { useRouter } from 'vue-router'
-import { setUserInfo } from '/@/utils/auth'
+import { UserData } from '/@/api'
+import type { Result } from '/@/api/type'
+import Avatar from '/@c/Upload/SingleImg.vue'
 
 function useUpdate() {
   const state = reactive({
     form: {
-      avatar: 'https://qiniu-shop.zoombin.com/avatar.jpg',
-      // avatar: '',
+      avatar: '',
       name: '',
       sign: '',
       gender: 'unknow',
@@ -96,15 +85,10 @@ function useUpdate() {
       message.error('请上传头像')
       return
     }
-    validate()
-      .then(() => {
-        callback(toRaw(state.form))
-      })
-      .catch((err) => {
-        console.log('error', err)
-      })
+    validate().then(() => {
+      callback(toRaw(state.form))
+    })
   }
-
   return { ...toRefs(state), validate, validateInfos, handleSubmit }
 }
 
@@ -147,16 +131,15 @@ function useAvatar() {
 
 export default {
   name: 'update',
-  components: { PlusOutlined, LoadingOutlined },
+  components: { PlusOutlined, LoadingOutlined, Avatar },
   setup() {
-    const { form, rules, validate, validateInfos, handleSubmit } = useUpdate()
-    const { fileList, loading, handleChange, beforeUpload } = useAvatar()
     const store = useStore()
     const router = useRouter()
+    const { handleSubmit, ...rest } = useUpdate()
     const Update = () => {
       handleSubmit((form: object) => {
         UserData.update(form).then((res: Result) => {
-          setUserInfo(res.data)
+          store.commit('user/setUserInfo', res.data)
           message.success('更新成功')
           setTimeout(() => {
             router.replace('/')
@@ -166,17 +149,11 @@ export default {
     }
 
     return {
-      form,
-      rules,
-      validate,
-      validateInfos,
       Update,
-      fileList,
-      loading,
-      handleChange,
-      beforeUpload
+      ...useAvatar(),
+      ...rest,
     }
-  }
+  },
 }
 </script>
 <style lang='scss' scoped>

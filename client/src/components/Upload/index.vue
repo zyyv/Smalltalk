@@ -21,7 +21,7 @@
 </template>
 
 <script lang='ts'>
-import { ref, reactive, toRefs } from 'vue'
+import { ref, reactive, toRefs, watchEffect } from 'vue'
 import { message } from 'ant-design-vue'
 import { InboxOutlined } from '@ant-design/icons-vue'
 import { httpGet } from '../../api/axios'
@@ -37,27 +37,6 @@ function useUpload() {
     list: [
       // {
       //   uid: '-1',
-      //   name: 'image.png',
-      //   status: 'done',
-      //   url:
-      //     'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      // },
-      // {
-      //   uid: '-2',
-      //   name: 'image.png',
-      //   status: 'done',
-      //   url:
-      //     'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      // },
-      // {
-      //   uid: '-3',
-      //   name: 'image.png',
-      //   status: 'done',
-      //   url:
-      //     'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      // },
-      // {
-      //   uid: '-4',
       //   name: 'image.png',
       //   status: 'done',
       //   url:
@@ -98,23 +77,12 @@ export default {
     const handleChange = ({ file, fileList }) => {
       const status = file.status
       if (file.status === 'uploading') {
-        // this.loading = true;
-        // return
-        console.log(status)
         list.value = fileList
       }
       if (file.status === 'done') {
-        console.log(status, file, fileList)
-
         list.value = fileList
-        // Get this url from response in real world.
-        // getBase64(file.originFileObj, imageUrl => {
-        //   this.imageUrl = imageUrl;
-        //   this.loading = false;
-        // });
       }
       if (file.status === 'error') {
-        // this.loading = false;
         console.log(status, file, fileList)
       }
     }
@@ -127,7 +95,7 @@ export default {
           formData.key = key
           Promise.resolve(true)
         })
-        .catch((err) => {
+        .catch(() => {
           Promise.reject(false)
         })
     }
