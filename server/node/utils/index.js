@@ -1,3 +1,5 @@
+const axios = require('axios')
+
 /**
  * 获取几位随机数字
  * @param {number} n 
@@ -26,8 +28,19 @@ const useError = (msessage, status = 200, same = true) => {
   return error
 }
 
+const getImageInfo = url => {
+  return new Promise((resolve, reject) => {
+    axios.get(`${url}?imageInfo`, {}).then(res => {
+      resolve(res.data)
+    }).catch(() => {
+      resolve(null)
+    })
+  })
+}
+
 module.exports = {
   getRandomNumber,
   num2Time,
-  useError
+  useError,
+  getImageInfo
 }

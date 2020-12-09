@@ -2,7 +2,7 @@ import { UserData } from "/@/api"
 import { message } from 'ant-design-vue'
 import router from '/@/router'
 import type { Module } from "vuex"
-import { UserLoginResp, obj, Result } from "/@/api/type"
+import { UserLoginResp, Result, Login } from "/@/api/type"
 import { getToken, getUserInfo, setRemember, setToken, setUserInfo, storageClear } from "/@/utils/auth"
 
 interface State {
@@ -27,7 +27,7 @@ const user: Module<State, any> = {
     }
   },
   actions: {
-    async login({ commit }, data: obj) {
+    async login({ commit }, data: Login) {
       return new Promise((resolve, reject) => {
         UserData.login(data).then((res: Result<UserLoginResp>) => {
           setRemember(data.remember ? 1 : 0) // 记住我
@@ -48,7 +48,7 @@ const user: Module<State, any> = {
       })
     },
     async logout({ commit }) {
-      commit('setToken', '')
+      commit('setToken', null)
       storageClear()
     }
   }

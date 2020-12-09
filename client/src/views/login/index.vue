@@ -63,6 +63,7 @@ import { UserData } from '/@/api'
 import { throttle } from '/@/utils'
 import { storageClear } from '/@/utils/auth'
 import type { Result } from '/@/api/type'
+import { Login } from '../../api/type'
 
 const phoneReg = /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/
 
@@ -155,7 +156,7 @@ export default {
     })
     const store = useStore()
     const { form, handleSubmit, ...rest } = useLogin()
-    const login = async (form: object) => store.dispatch('user/login', form)
+    const login = async (form: Login) => store.dispatch('user/login', form)
     const Submit = () => {
       handleSubmit(login)
     }

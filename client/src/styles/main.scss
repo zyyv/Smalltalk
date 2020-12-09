@@ -153,6 +153,14 @@ h6,
   font-size: 1.5rem;
 }
 
+.noSelected {
+  user-select: none;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.25s;

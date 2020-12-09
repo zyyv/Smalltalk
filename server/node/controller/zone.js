@@ -35,6 +35,7 @@ module.exports = {
   commentModel,
   async list(ctx) {
     let { page, pagesize } = ctx.query
+    const { _id } = ctx.state.user
     page = Number(page)
     page = page ? page : 0
     pagesize = Number(pagesize)
@@ -42,21 +43,21 @@ module.exports = {
     const skip = page * pagesize
     const sort = { createdAt: -1 }
     const query = { removed: false }
-    const data = await postModel.find(query).sort(sort).skip(skip).limit(pagesize)
-      .populate([
-        { path: 'author', select: { name: 1, avatar: 1 } },
-        { path: 'likes', select: { name: 1, avatar: 1 } },
-        {
-          path: 'comments',
-          populate: [{
-            path: 'author',
-            select: { name: 1, avatar: 1 },
-          }, {
-            path: 'replyed',
-            populate: { path: 'author', select: { name: 1, avatar: 1 } }
-          }]
-        },
-      ])
+    let data = await postModel.find(query).sort(sort).skip(skip).limit(pagesize).populate([
+      { path: 'author', select: { name: 1, avatar: 1 } },
+      { path: 'likes', select: { name: 1, avatar: 1 } },
+      {
+        path: 'comments',
+        populate: [{
+          path: 'author',
+          select: { name: 1, avatar: 1 },
+        }, {
+          path: 'replyed',
+          populate: { path: 'author', select: { name: 1, avatar: 1 } }
+        }]
+      },
+    ]).lean()
+    data = data.map(it => ({ ...it, isliked: it.likes.some(el => el._id == _id) }))
     const total = await postModel.countDocuments(query)
     return ctx.body = { data, total }
   },
@@ -85,5 +86,25 @@ module.exports = {
     const item = await commentModel.create(one)
     post.comments.push(item._id)
     await post.save()
+  },
+  async liked(ctx) {
+    const { postId } = ctx.request.body
+    const { _id } = ctx.state.user
+    const one = await postModel.findById(postId)
+    if (!one) throw useError('帖子不存在', 401)
+    const index = one.likes.indexOf(_id)
+    if (index >= 0) throw useError('您已经点赞该帖子', 401, false)
+    one.likes.push(_id)
+    await one.save()
+  },
+  async disliked(ctx) {
+    const { postId } = ctx.request.body
+    const { _id } = ctx.state.user
+    const one = await postModel.findById(postId)
+    if (!one) throw useError('帖子不存在', 401)
+    const index = one.likes.indexOf(_id)
+    if (index < 0) throw useError('您没有点赞该帖子', 401, false)
+    one.likes.splice(index, 1)
+    await one.save()
   }
 }

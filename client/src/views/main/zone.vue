@@ -70,7 +70,7 @@
                            placement="left">
                   <template #title>
                     <div class="tips">
-                      <div class="tipItem">
+                      <div v-if="!item.isliked" @click="liked(item._id)" class="tipItem">
                         <svg width="1em"
                              height="1em"
                              viewBox="0 0 16 16"
@@ -81,7 +81,7 @@
                                 d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
                         </svg><span>点赞</span>
                       </div>
-                      <div class="tipItem">
+                      <div v-else @click="disliked(item._id)" class="tipItem">
                         <svg width="1em"
                              height="1em"
                              viewBox="0 0 16 16"
@@ -136,16 +136,16 @@
                   </div>
                   <template v-for="(like,i) in item.likes"
                             :key="like._id">
-                    <span>{{like.name}}</span><span v-if="i !== item.likes.length - 1">,</span>
+                    <span class="noSelected">{{like.name}}</span><span class="noSelected" v-if="i !== item.likes.length - 1">,</span>
                   </template>
                 </div>
                 <div v-if="item.comments.length" class="body">
                   <div v-for="com in item.comments">
-                    <span class="name">{{com.author.name}}</span>
+                    <span class="name noSelected">{{com.author.name}}</span>
                     <template v-if="com.replyed">
-                      <span>回复</span><span class="name">{{com.replyed.author.name}}</span>
+                      <span class="noSelected">回复</span><span class="name noSelected">{{com.replyed.author.name}}</span>
                     </template>
-                    <span>：{{com.content}}</span>
+                    <span class="noSelected">：</span><span>{{com.content}}</span>
                   </div>
                 </div>
               </div>
@@ -163,6 +163,8 @@ import Avatar from '/@c/Avatar.vue'
 import { useStore } from 'vuex'
 import { ZoneData } from '../../api'
 import { getDateByTime } from '../../utils'
+import { message } from 'ant-design-vue'
+import { httpGet } from '../../api/axios'
 
 function useView() {
   const posts = ref([])
@@ -174,16 +176,31 @@ function useView() {
   return { posts, loadPosts }
 }
 
+function useLike(callback:Function) {
+  const liked = (postId) => {
+    ZoneData.liked({postId}).then(()=>{callback()})
+  }
+  const disliked = (postId) => {
+    ZoneData.disliked({postId}).then(()=>{callback()})
+  }
+  return { liked, disliked }
+}
+
 export default {
   name: 'zone',
   components: { Avatar },
   setup() {
     const store = useStore()
+    // const showTooltip = ref(false)
     const { posts, loadPosts } = useView()
     loadPosts()
+
+  httpGet('https://qiniu-shop.zoombin.com/avatar.jpg?imageInfo').then(res=>{console.log(res)})
+
     return {
       posts,
       getDateByTime,
+      ...useLike(loadPosts),
       userInfo: computed(() => store.state.user.userInfo),
     }
   },
@@ -247,11 +264,10 @@ export default {
               flex-wrap: wrap;
               margin-top: 1rem;
               .imgItem {
-                width: 32%;
-                padding-top: 32%;
+                width: 48%;
+                padding-top: 48%;
                 border-radius: 0.3rem;
                 margin: 0 2% 2% 0;
-                // background-image: url('../../assets/logo.png');
                 background-repeat: no-repeat;
                 background-size: cover;
                 background-position: center center;
@@ -320,6 +336,7 @@ export default {
 .tipItem {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 .tipItem {
   padding: 6px 8px;
@@ -334,7 +351,7 @@ export default {
         .zoneitem {
           .wrapper {
             .head {
-              height: 5rem;
+              // height: 5rem;
               .name {
                 font-size: 1.5rem;
               }

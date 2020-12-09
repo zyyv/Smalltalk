@@ -1,5 +1,6 @@
 const Router = require('koa-router')
 const router = new Router()
+const { getImageInfo } = require('../utils')
 
 const qiniuCtrl = require('../controller/qiniu')
 router.get('/qiniu/token', qiniuCtrl.getUpToken)
@@ -15,9 +16,17 @@ const ZoneCtrl = require('../controller/zone')
 router.get('/zone/list', ZoneCtrl.list)
 router.post('/zone/create', ZoneCtrl.create)
 router.post('/zone/createComment', ZoneCtrl.createComment)
+router.post('/zone/liked', ZoneCtrl.liked)
+router.post('/zone/disliked', ZoneCtrl.disliked)
 
 
 
+router.get('/a', async (ctx) => {
+  const url = 'https://qiniu-shop.zoombin.com/avatar.jpg'
+  const res = await getImageInfo(url)
+  console.log(res)
+  ctx.body = res
+})
 router.get('/', async (ctx) => {
   // console.log(ctx.state)
 
