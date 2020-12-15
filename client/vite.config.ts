@@ -8,7 +8,6 @@ module.exports = {
     '/@/': pathResolve('src'),
     '/@c/': pathResolve('src/components'),
   },
-  // 引入第三方配置
   optimizeDeps: {
     include: ['ant-design-vue', '@ant-design-vue/use', '@ant-design/icons-vue'],
   },
