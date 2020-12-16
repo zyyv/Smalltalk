@@ -27,14 +27,18 @@
                      placeholder="Enter your smscode"
                      v-model:value="form.code">
               <template #suffix>
-                <a-button @click="GetSmsCode"><span class="gradient-text">{{ codeBtnText }}</span></a-button>
+                <a-button @click="GetSmsCode"><span class="gradient-text">{{
+                    codeBtnText
+                  }}</span></a-button>
               </template>
             </a-input>
           </a-form-item>
         </transition>
         <a-form-item>
           <div class="btns">
-            <a-checkbox v-model:checked="form.remember"> Remember me </a-checkbox>
+            <a-checkbox v-model:checked="form.remember">
+              Remember me
+            </a-checkbox>
             <div @click="handleTypeChange"
                  class="exchange">
               <SwapOutlined />
@@ -45,7 +49,8 @@
           <a-button :loading="loading"
                     @click.prevent="Submit"
                     class="gradient-button"
-                    block>Sign in
+                    block>
+            Sign in
           </a-button>
         </a-form-item>
       </a-form>
@@ -55,7 +60,7 @@
 </template>
 
 <script lang="ts">
-import { ref, reactive, toRaw, toRefs, onBeforeUnmount, toRef, Ref } from 'vue'
+import { ref, reactive, toRaw, onBeforeUnmount, toRef, Ref } from 'vue'
 import { SwapOutlined } from '@ant-design/icons-vue'
 import { useStore } from 'vuex'
 import { message } from 'ant-design-vue'
@@ -63,7 +68,7 @@ import { UserData } from '/@/api'
 import { throttle } from '/@/utils'
 import { storageClear } from '/@/utils/auth'
 import type { Result } from '/@/api/type'
-import { Login } from '../../api/type'
+import { Login } from '/@/api/type'
 
 const phoneReg = /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/
 
@@ -102,7 +107,14 @@ function useSmscode(num: number, phone: Ref<string>) {
 }
 
 function useLogin() {
-  const form = reactive({
+  interface Form {
+    phone: string
+    pwd: string
+    remember: boolean
+    code: string
+    type: 'I' | 'II'
+  }
+  const form = reactive<Form>({
     phone: '',
     pwd: '',
     remember: true,
@@ -113,7 +125,10 @@ function useLogin() {
   const handleTypeChange = () => {
     form.type = form.type === 'I' ? 'II' : 'I'
   }
-  const handleSubmit = (callback: Function) => {
+  interface Func<T = any> {
+    (form: Form): Promise<T>
+  }
+  const handleSubmit = (callback: Func) => {
     loading.value = true
     if (!phoneReg.test(form.phone)) {
       message.error('请输入正确的手机号')
@@ -148,7 +163,7 @@ function useLogin() {
 export default {
   name: 'login',
   components: { SwapOutlined },
-  setup() {
+  setup () {
     // 挂载和卸载之前都清理一下
     storageClear()
     onBeforeUnmount(() => {

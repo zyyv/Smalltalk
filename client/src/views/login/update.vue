@@ -62,8 +62,18 @@ import { UserData } from '/@/api'
 import type { Result } from '/@/api/type'
 import Avatar from '/@c/Upload/SingleImg.vue'
 
+interface Form {
+  avatar: string
+  name: string
+  sign: string
+  gender: 'unknow' | 'male' | 'female'
+}
 function useUpdate() {
-  const state = reactive({
+  interface State {
+    form: Form
+    rules: object
+  }
+  const state = reactive<State>({
     form: {
       avatar: '',
       name: '',
@@ -80,7 +90,11 @@ function useUpdate() {
     },
   })
   const { validate, validateInfos } = useForm(state.form, state.rules)
-  const handleSubmit = (callback: Function) => {
+
+  interface Func {
+    (form: Form): void
+  }
+  const handleSubmit = (callback: Func) => {
     if (!state.form.avatar) {
       message.error('请上传头像')
       return
@@ -114,7 +128,7 @@ function useAvatar() {
       state.loading = false
     }
   }
-  const beforeUpload = (file: any) => {
+  const beforeUpload = (file: File) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
     if (!isJpgOrPng) {
       message.error('You can only upload JPG file!')
@@ -156,7 +170,7 @@ export default {
   },
 }
 </script>
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .update {
   width: 100vw;
   height: 100vh;

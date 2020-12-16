@@ -4,7 +4,8 @@
               title="404"
               sub-title="抱歉，您访问的页面不存在。">
       <template #extra>
-        <a-button @click="backHome" class="gradient-button btn">
+        <a-button @click="backHome"
+                  class="gradient-button btn">
           Back Home
         </a-button>
       </template>
