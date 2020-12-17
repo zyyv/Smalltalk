@@ -163,7 +163,7 @@ function useLogin() {
 export default {
   name: 'login',
   components: { SwapOutlined },
-  setup () {
+  setup() {
     // 挂载和卸载之前都清理一下
     storageClear()
     onBeforeUnmount(() => {

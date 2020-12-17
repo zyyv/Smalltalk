@@ -20,13 +20,15 @@ const routes: RouteRecordRaw[] = [
           main: () => import('/@/views/main/settings.vue')
         }
       },
-      { path: 'profile', name: 'profile', component: () => import("/@/views/main/profile.vue") }
+      { path: 'profile', name: 'profile', component: () => import("/@/views/main/profile.vue") },
+      // { path: 'chating', name: 'chating', component: () => import("/@/views/chat/chating.vue") }
     ]
   },
   { path: '/login', name: 'login', component: () => import('/@/views/login/index.vue') },
   { path: '/update', name: 'update', component: () => import('/@/views/login/update.vue') },
   { path: '/404', name: '404', component: () => import('/@/views/error/404.vue') },
-  { path: '/500', name: '500', component: () => import('/@/views/error/500.vue') }
+  { path: '/500', name: '500', component: () => import('/@/views/error/500.vue') },
+  { path: '/chating', name: 'chating', component: () => import("/@/views/chat/chating.vue") }
 ]
 
 const router = createRouter({

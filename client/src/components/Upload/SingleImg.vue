@@ -19,7 +19,7 @@
 </template>
 
 <script lang='ts'>
-import { ref, reactive, toRefs } from 'vue'
+import { ref, reactive, toRefs, SetupContext } from 'vue'
 import { message } from 'ant-design-vue'
 import {
   InboxOutlined,
@@ -29,7 +29,7 @@ import {
 import { httpGet } from '/@/api/axios'
 import { random } from '/@/utils'
 
-function useUpload(props, ctx) {
+function useUpload(ctx: any) {
   const state = reactive({
     action:
       window.location.protocol === 'https:'
@@ -43,7 +43,7 @@ function useUpload(props, ctx) {
     },
     domainUrl: '',
   })
-  const handleChange = ({ file, fileList }) => {
+  const handleChange = ({ file, fileList }: any) => {
     const status = file.status
     if (file.status === 'uploading') {
       state.loading = true
@@ -58,7 +58,7 @@ function useUpload(props, ctx) {
       state.loading = false
     }
   }
-  const beforeUpload = (file, fileList) => {
+  const beforeUpload = (file: File, fileList: File[]) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
     if (!isJpgOrPng) {
       message.error('You can only upload JPG file!')
@@ -107,7 +107,7 @@ export default {
   },
   setup(props, ctx) {
     return {
-      ...useUpload(props, ctx),
+      ...useUpload(ctx),
     }
   },
 }

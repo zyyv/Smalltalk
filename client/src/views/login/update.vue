@@ -29,15 +29,9 @@
         <a-form-item label="Gender">
           <a-radio-group style="padding:1rem 1.25rem"
                          v-model:value="form.gender">
-            <a-radio value="male">
-              男
-            </a-radio>
-            <a-radio value="female">
-              女
-            </a-radio>
-            <a-radio value="unknow">
-              保密
-            </a-radio>
+            <a-radio value="male">男</a-radio>
+            <a-radio value="female">女</a-radio>
+            <a-radio value="unknow">保密</a-radio>
           </a-radio-group>
         </a-form-item>
         <a-form-item style="margin-bottom:0;">

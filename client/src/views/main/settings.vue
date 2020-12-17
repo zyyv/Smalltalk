@@ -5,9 +5,10 @@
     </NavHeader>
     <!-- <div style="padding:20px 200px">
       <Upload />
-      <Upload2 v-model:src='form.img' />
+      
       <a-button @click="click">asd</a-button>
     </div> -->
+    <Upload2 v-model:src='form.img' />
   </div>
 </template>
 
