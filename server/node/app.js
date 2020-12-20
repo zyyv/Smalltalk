@@ -1,5 +1,8 @@
-const Koa = require('koa');
-const app = new Koa();
+const Koa = require('koa')
+const app = new Koa()
+const server = require('http').createServer(app.callback())
+const io = require('socket.io')(server)
+const port = 9999
 const bodyParser = require('koa-bodyparser')
 const xmlParser = require('koa-xml-body')
 const cors = require('koa2-cors')
@@ -16,7 +19,14 @@ app.use(cors())
 app.use(static(path.resolve(__dirname, './public/client')))
 app.use(router.routes()).use(router.allowedMethods())
 
-const port = 9999
-app.listen(port, () => {
-  console.log(`server listening on ${port}`)
+io.sockets.on('connection', (socket) => {
+  console.log('已连接')
+  socket.on("disconnect", () => {
+    console.log('端开链接')
+  });
+});
+
+
+server.listen(port, () => {
+  console.log(`server listening on http://localhost:${port}`)
 });

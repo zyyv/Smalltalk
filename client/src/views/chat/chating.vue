@@ -8,16 +8,20 @@
         <template v-for="i in 10"
                   :key="i">
           <div class="messageItem notme">
-            <Avatar class="avatar"
-                    :online="false"
-                    src="http://ql61yf5hl.hn-bkt.clouddn.com/1608021828527-8669.jfif" />
+            <div>
+              <Avatar class="avatar"
+                      :online="false"
+                      src="http://ql61yf5hl.hn-bkt.clouddn.com/1608021828527-8669.jfif" />
+            </div>
             <div class="messageBody">我得给父母买些礼物。</div>
           </div>
           <div class="messageItem me">
-            <div class="messageBody">百货一个朋友。我得给父母买些礼物。百货一个朋友。我得给父母买些礼物。百货一个朋友。我得给父母买些礼物。百货一个朋友。我得给父母买些礼物。</div>
-            <Avatar class="avatar"
-                    :online="false"
-                    src="http://ql61yf5hl.hn-bkt.clouddn.com/1608021828527-8669.jfif" />
+            <div>
+              <Avatar class="avatar"
+                      :online="false"
+                      src="http://ql61yf5hl.hn-bkt.clouddn.com/1608021828527-8669.jfif" />
+            </div>
+            <div class="messageBody">货一个朋友。我得给父母买些礼物。百货一个朋友。我得给父母买些礼物。货一个朋友。我得给父母买些礼物。百货一个朋友。我得给父母买些礼物。</div>
           </div>
         </template>
 
@@ -127,18 +131,19 @@ export default defineComponent({
             margin-left: 1.5rem;
             border-bottom-left-radius: 0;
             &::after {
-              left: -1rem;
+              left: -0.85rem;
             }
           }
         }
         &.me {
+          flex-direction: row-reverse;
           .messageBody {
             margin-right: 1.5rem;
             border-bottom-right-radius: 0;
             background-color: #4198ff;
             color: #fff;
             &::after {
-              right: -1rem;
+              right: -0.85rem;
               border-color: transparent transparent #4198ff transparent;
             }
           }
@@ -149,6 +154,7 @@ export default defineComponent({
         .messageBody {
           position: relative;
           width: fit-content;
+          max-width: 60%;
           padding: 1.5rem;
           line-height: 1.5;
           font-size: 1.6rem;
@@ -179,9 +185,9 @@ export default defineComponent({
         flex: 1;
         .textarea {
           height: auto;
-          // padding: 1.4rem 1.25rem;
+          // padding: 1.4rem 1rem;
           font-size: 1.4rem;
-          line-height: 1.6;
+          // line-height: 1.5;
           border-radius: 0.375rem;
           display: block;
           width: 100%;
@@ -232,4 +238,5 @@ export default defineComponent({
     }
   }
 }
+
 </style>
