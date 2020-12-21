@@ -1,5 +1,7 @@
 <template>
-  <div class="avatar" :style="style" :class="online ? 'online' : ''">
+  <div class="avatar"
+       :style="style"
+       :class="online ? 'online' : ''">
     <div :style="{ 'border-radius': radius, 'background-image': `url(${src})` }"></div>
   </div>
 </template>
@@ -28,9 +30,9 @@ export default {
     },
   },
   setup(props) {
-    const isDef = (val) => val !== undefined && val !== null
-    const isNumeric = (val) => /^\d+(\.\d+)?$/.test(val)
-    const addUnit = (val) => {
+    const isDef = (val: any) => val !== undefined && val !== null
+    const isNumeric = (val: any) => /^\d+(\.\d+)?$/.test(val)
+    const addUnit = (val: any) => {
       if (!isDef(val)) {
         return undefined
       }

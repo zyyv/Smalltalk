@@ -118,6 +118,6 @@ export default {
   border-radius: 50%;
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: contain;
+  background-size: cover;
 }
 </style>

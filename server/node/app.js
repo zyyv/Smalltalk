@@ -19,7 +19,7 @@ app.use(cors())
 app.use(static(path.resolve(__dirname, './public/client')))
 app.use(router.routes()).use(router.allowedMethods())
 
-io.sockets.on('connection', (socket) => {
+io.on('connection', (socket) => {
   console.log('已连接')
   socket.on("disconnect", () => {
     console.log('端开链接')
