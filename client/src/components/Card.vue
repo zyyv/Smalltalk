@@ -11,7 +11,7 @@
       </div> -->
       <slot></slot>
       <slot name="right"></slot>
-      <div v-if="notify"
+      <div v-if="notify !== 0"
            class="notify">
         <span class="num">{{notify}}</span>
       </div>
@@ -20,21 +20,18 @@
 </template>
 
 <script>
-import { ref, reactive } from "vue";
-import Avatar from "./Avatar.vue";
+import { ref, reactive } from 'vue'
+import Avatar from './Avatar.vue'
 export default {
-  name: "card",
+  name: 'card',
   props: {
     notify: {
       type: Number,
-      default: 0,
-    },
+      default: 0
+    }
   },
-  components: { Avatar },
-  setup() {
-    return {};
-  },
-};
+  components: { Avatar }
+}
 </script>
 <style lang='scss' scoped>
 .card {
@@ -64,10 +61,10 @@ export default {
       overflow: hidden;
       background-color: var(--blue);
       border-radius: 50%;
-      border: .5rem solid var(--white);
-      transform: translate(25%,-25%);
-      .num{
-        font-size: .9rem;
+      border: 0.5rem solid var(--white);
+      transform: translate(25%, -25%);
+      .num {
+        font-size: 0.9rem;
         color: var(--white);
       }
     }

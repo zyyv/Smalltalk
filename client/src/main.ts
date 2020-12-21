@@ -13,7 +13,12 @@ const socketConnection = SocketIO('http://localhost:9999')
 
 app.config.globalProperties.$socket = new VueSocketIO({
     debug: process.env.NODE_ENV === 'development',
-    connection: socketConnection
+    connection: socketConnection,
+    vuex: {
+        store,
+        mutationPrefix: "SOCKET_",
+        actionPrefix: "SOCKET_"
+    }
 })
 app.use(Antd)
 app.use(router).use(store).mount('#app')

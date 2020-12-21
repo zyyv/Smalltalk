@@ -1,8 +1,7 @@
 <template>
   <div class="chating">
     <NavHeader class="head"
-               title="Settings"
-               subTitle='Update your profile details' />
+               :title="name || 'Chris'" />
     <div class="body">
       <div class="messageList">
         <template v-for="i in 10"
@@ -80,14 +79,15 @@
   </div>
 </template>
 <script lang='ts'>
-import { defineComponent, ref, reactive } from 'vue'
+import { defineComponent, ref, reactive, toRefs, watchEffect } from 'vue'
 import Avatar from '/@c/Avatar.vue'
 import {
   SmileOutlined,
   PaperClipOutlined,
-  SendOutlined,
+  SendOutlined
 } from '@ant-design/icons-vue'
 import NavHeader from '/@c/NavHeader.vue'
+import { useRoute, onBeforeRouteUpdate } from 'vue-router'
 export default defineComponent({
   name: 'chating',
   components: {
@@ -95,11 +95,19 @@ export default defineComponent({
     NavHeader,
     SmileOutlined,
     PaperClipOutlined,
-    SendOutlined,
+    SendOutlined
   },
   setup() {
-    return {}
-  },
+    const state = reactive({
+      name: ''
+    })
+    const route = useRoute()
+    const { chatId } = route.params
+    state.name = chatId
+    watchEffect(() => {})
+
+    return { ...toRefs(state) }
+  }
 })
 </script>
 <style lang='scss' scoped>
@@ -185,9 +193,9 @@ export default defineComponent({
         flex: 1;
         .textarea {
           height: auto;
-          // padding: 1.4rem 1rem;
+          padding: .8rem;
           font-size: 1.4rem;
-          // line-height: 1.5;
+          line-height: 1.5715;
           border-radius: 0.375rem;
           display: block;
           width: 100%;
@@ -238,5 +246,4 @@ export default defineComponent({
     }
   }
 }
-
 </style>

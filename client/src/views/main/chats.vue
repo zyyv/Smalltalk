@@ -29,16 +29,17 @@
         </div>
       </div>
       <div class="messages">
-        <Card v-for="i in 10"
-              :key="i"
+        <Card v-for="item in msgList"
+              :key="item.name"
               class="card"
-              :notify="i">
+              :notify="item.notify"
+              @click="chatClick(item.name)">
           <div class="body">
             <div class="info">
-              <h6 class="name ellipsis">Chris Borwd</h6>
-              <span class="time">06:00 am</span>
+              <h6 class="name ellipsis">{{item.name}}</h6>
+              <span class="time">{{item.time}}</span>
             </div>
-            <div class="msg ellipsis">Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?</div>
+            <div class="msg ellipsis">{{item.msg}}</div>
           </div>
         </Card>
       </div>
@@ -46,10 +47,12 @@
   </div>
 </template>
 
-<script>
-import { ref, reactive } from 'vue';
-import Avatar from '/@c/Avatar.vue';
-import Card from '/@c/Card.vue';
+<script lang='ts'>
+import { ref, reactive } from 'vue'
+import Avatar from '/@c/Avatar.vue'
+import Card from '/@c/Card.vue'
+import { random } from '/@/utils'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'chats',
@@ -65,11 +68,42 @@ export default {
       { name: 'william5', status: 'online' },
       { name: 'william1william1', status: 'Offline' },
       { name: 'william3', status: 'Offline' },
-      { name: 'william4', status: 'Offline' },
-    ]);
-    return { peoples };
-  },
-};
+      { name: 'william4', status: 'Offline' }
+    ])
+    const msgList = reactive([
+      {
+        name: 'Chris Borwd',
+        time: '06:00 am',
+        notify: random(5, 0),
+        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
+      },
+      {
+        name: 'Alice',
+        time: '06:00 am',
+        notify: random(5, 0),
+        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
+      },
+      {
+        name: 'Bob',
+        time: '06:00 am',
+        notify: random(5, 0),
+        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
+      },
+      {
+        name: 'Candy',
+        time: '06:00 am',
+        notify: random(5, 0),
+        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
+      }
+    ])
+    const router = useRouter()
+    const chatClick = (name: string) => {
+      console.log(name)
+      router.push(`/chating/${name}`)
+    }
+    return { peoples, chatClick, msgList }
+  }
+}
 </script>
 <style lang='scss' scoped>
 .chats {
