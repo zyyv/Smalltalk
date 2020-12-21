@@ -3,6 +3,7 @@ const { resolve } = require('path')
 const pathResolve = (src: string) => resolve(__dirname, src)
 
 module.exports = {
+  port: 3000,
   outDir: pathResolve('../server/node/public/client'),
   alias: {
     '/@/': pathResolve('src'),
@@ -13,7 +14,7 @@ module.exports = {
   },
   proxy: {
     '/api': {
-      target: process.env.NODE_ENV === 'development' ? 'http://localhost:9999/api' : '47.103.219.72:9999/api',
+      target: 'http://localhost:9999/api',
       changeOrigin: true,
       rewrite: (path: string) => path.replace(/^\/api/, '')
     }
