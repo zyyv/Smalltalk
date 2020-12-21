@@ -10,7 +10,7 @@ module.exports = {
     '/@c/': pathResolve('src/components'),
   },
   optimizeDeps: {
-    include: ['ant-design-vue', '@ant-design-vue/use', '@ant-design/icons-vue'],
+    include: ['ant-design-vue', '@ant-design-vue/use', '@ant-design/icons-vue', 'vue-socket.io'],
   },
   proxy: {
     '/api': {
@@ -18,5 +18,13 @@ module.exports = {
       changeOrigin: true,
       rewrite: (path: string) => path.replace(/^\/api/, '')
     }
+    // '/socket.io': {
+    //   target: 'http://localhost:9999',
+    //   changeOrigin: true
+    // },
+    // 'sockjs-node': {
+    //   target: 'http://localhost:9999',
+    //   changeOrigin: true
+    // },
   }
 }
