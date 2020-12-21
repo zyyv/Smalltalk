@@ -74,7 +74,7 @@ export default {
       key: '',
     })
     const domainUrl = ref('')
-    const handleChange = ({ file, fileList }) => {
+    const handleChange = ({ file, fileList }: any) => {
       const status = file.status
       if (file.status === 'uploading') {
         list.value = fileList
@@ -86,7 +86,7 @@ export default {
         console.log(status, file, fileList)
       }
     }
-    const beforeUpload = (file, fileList) => {
+    const beforeUpload = (file: File, fileList: File[]) => {
       const key = `${+new Date()}-${random(9999, 1000)}${getSuffix(file.name)}`
       return httpGet('/qiniu/token')
         .then((res) => {
@@ -99,7 +99,7 @@ export default {
           Promise.reject(false)
         })
     }
-    const handleRemove = (file) => {
+    const handleRemove = (file: any) => {
       const index = list.value.indexOf(file)
       list.value.splice(index, 1)
       return true

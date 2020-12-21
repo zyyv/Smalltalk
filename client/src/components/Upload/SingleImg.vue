@@ -44,7 +44,6 @@ function useUpload(ctx: any) {
     domainUrl: '',
   })
   const handleChange = ({ file, fileList }: any) => {
-    const status = file.status
     if (file.status === 'uploading') {
       state.loading = true
       state.list = fileList
