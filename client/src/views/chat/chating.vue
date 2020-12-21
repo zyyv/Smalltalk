@@ -12,7 +12,7 @@
                       :online="false"
                       src="http://ql61yf5hl.hn-bkt.clouddn.com/1608021828527-8669.jfif" />
             </div>
-            <div class="messageBody">我得给父母买些礼物。</div>
+            <div class="messageBody" v-html='parsingEmoji("明天约吗？[奸笑]")'></div>
           </div>
           <div class="messageItem me">
             <div>
@@ -20,7 +20,7 @@
                       :online="false"
                       src="http://ql61yf5hl.hn-bkt.clouddn.com/1608021828527-8669.jfif" />
             </div>
-            <div class="messageBody">货一个朋友。我得给父母买些礼物。百货一个朋友。我得给父母买些礼物。货一个朋友。我得给父母买些礼物。百货一个朋友。我得给父母买些礼物。</div>
+            <div class="messageBody" v-html='parsingEmoji("明天约吗？[奸笑]")'></div>
           </div>
         </template>
 
@@ -34,7 +34,7 @@
                       :auto-size="{ minRows: 1, maxRows: 3 }" />
         </div>
         <div class="right">
-          <div class="icon">
+          <div class="icon face">
             <!-- <SmileOutlined /> -->
             <svg xmlns="http://www.w3.org/2000/svg"
                  width="1em"
@@ -49,7 +49,7 @@
               <path d="M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
             </svg>
           </div>
-          <div class="icon">
+          <div class="icon files">
             <!-- <PaperClipOutlined /> -->
             <svg xmlns="http://www.w3.org/2000/svg"
                  width="1em"
@@ -61,7 +61,7 @@
               <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z" />
             </svg>
           </div>
-          <div class="icon">
+          <div class="icon send">
             <!-- <SendOutlined /> -->
             <svg xmlns="http://www.w3.org/2000/svg"
                  width="1em"
@@ -88,6 +88,10 @@ import {
 } from '@ant-design/icons-vue'
 import NavHeader from '/@c/NavHeader.vue'
 import { useRoute, onBeforeRouteUpdate } from 'vue-router'
+import parsingEmoji from '/@/utils/emjoyParse'
+function useChat() {
+  const state = reactive({})
+}
 export default defineComponent({
   name: 'chating',
   components: {
@@ -104,9 +108,8 @@ export default defineComponent({
     const route = useRoute()
     const { chatId } = route.params
     state.name = chatId
-    watchEffect(() => {})
 
-    return { ...toRefs(state) }
+    return { ...toRefs(state), parsingEmoji }
   }
 })
 </script>
@@ -122,18 +125,21 @@ export default defineComponent({
   > .body {
     flex: 1;
     order: 1;
+    padding: 1.25rem 1.5rem;
     overflow: hidden auto;
     &::-webkit-scrollbar {
       display: none;
     }
     > .messageList {
       width: 100%;
-      height: 100%;
-      padding: 1.25rem 1.5rem;
+      // height: 100%;
       .messageItem {
         display: flex;
         align-items: flex-end;
         margin-bottom: 2rem;
+        &:last-child {
+          margin-bottom: 0;
+        }
         &.notme {
           .messageBody {
             margin-left: 1.5rem;
@@ -163,9 +169,9 @@ export default defineComponent({
           position: relative;
           width: fit-content;
           max-width: 60%;
-          padding: 1.5rem;
+          padding: 1.2rem;
           line-height: 1.5;
-          font-size: 1.6rem;
+          font-size: 1.4rem;
           background-color: #f5f6fa;
           border-radius: 0.8rem;
           &::after {
@@ -193,7 +199,7 @@ export default defineComponent({
         flex: 1;
         .textarea {
           height: auto;
-          padding: .8rem;
+          padding: 0.8rem;
           font-size: 1.4rem;
           line-height: 1.5715;
           border-radius: 0.375rem;
