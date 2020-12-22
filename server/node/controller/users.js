@@ -17,6 +17,7 @@ const userSchema = new Schema({
   admin: { type: Boolean, default: false },
   isnew: { type: Boolean, default: true },
   sort: { type: Number, default: 100 },
+  friends:[{ type: Schema.Types.ObjectId, ref: 'users' }],
   removed: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
@@ -115,6 +116,7 @@ module.exports = {
         if (item.pwd) {
           if (item.pwd !== pwd) throw useError('密码错误', 401, false)
         } else {
+          // 初始密码 111111
           if ('111111' !== pwd) throw useError('密码错误', 401, false)
         }
       }

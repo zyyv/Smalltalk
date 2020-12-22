@@ -6,6 +6,7 @@
     "build": "set NODE_ENV=production&& vite build"
   },
   "dependencies": {
+    "@better-scroll/core": "^2.0.6",
     "ant-design-vue": "^2.0.0-beta.10",
     "axios": "^0.21.0",
     "moment": "^2.29.1",

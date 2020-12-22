@@ -1,6 +1,11 @@
 <template>
   <div class="main">
-    <router-view name="main"></router-view>
+    <router-view name="main"
+                 v-slot="{ Component }">
+      <transition>
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </div>
 </template>
 

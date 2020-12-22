@@ -9,14 +9,10 @@
 </template>
 
 <script>
-import { ref, reactive } from "vue";
+import { ref, reactive } from 'vue'
 export default {
-  name: "Sidebar",
-  components: {},
-  setup() {
-    return {};
-  },
-};
+  name: 'Sidebar'
+}
 </script>
 <style lang='scss' scoped>
 .sidebar {
