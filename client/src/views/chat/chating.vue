@@ -12,7 +12,7 @@
                       :online="false"
                       src="http://ql61yf5hl.hn-bkt.clouddn.com/1608021828527-8669.jfif" />
             </div>
-            <div class="messageBody" v-html='parsingEmoji("明天约吗？[奸笑]")'></div>
+            <div class="messageBody">明天约吗？</div>
           </div>
           <div class="messageItem me">
             <div>
@@ -20,7 +20,7 @@
                       :online="false"
                       src="http://ql61yf5hl.hn-bkt.clouddn.com/1608021828527-8669.jfif" />
             </div>
-            <div class="messageBody" v-html='parsingEmoji("明天约吗？[奸笑]")'></div>
+            <div class="messageBody">明天约吗？</div>
           </div>
         </template>
 
@@ -88,7 +88,6 @@ import {
 } from '@ant-design/icons-vue'
 import NavHeader from '/@c/NavHeader.vue'
 import { useRoute, onBeforeRouteUpdate } from 'vue-router'
-import parsingEmoji from '/@/utils/emjoyParse'
 function useChat() {
   const state = reactive({})
 }
@@ -102,14 +101,14 @@ export default defineComponent({
     SendOutlined
   },
   setup() {
-    const state = reactive({
+    const state = reactive<any>({
       name: ''
     })
     const route = useRoute()
     const { chatId } = route.params
     state.name = chatId
 
-    return { ...toRefs(state), parsingEmoji }
+    return { ...toRefs(state) }
   }
 })
 </script>

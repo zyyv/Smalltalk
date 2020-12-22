@@ -75,7 +75,6 @@ export default defineComponent({
           ctx.emit('scroll', pos)
         })
       }
-      console.log(scroll.value)
     })
     const disable = () => {
       // 代理better-scroll的disable方法

@@ -22,8 +22,8 @@
                 class="contacter-wrapper">
         <ul class="contacter">
           <li class="user"
-               v-for="(user,i) in peoples"
-               :key="i">
+              v-for="(user,i) in peoples"
+              :key="i">
             <Avatar width="4.4rem"
                     height="4.4rem"
                     :online="user.status === 'online'"
@@ -31,23 +31,6 @@
             <p class="user-name ellipsis">{{user.name}}</p>
           </li>
         </ul>
-      </Scroller>
-      <Scroller :data="emojis"
-                class="scroll-wrapper2">
-        <div class="scroll-content">
-          <div class="scroll-item"
-               v-for="(item, index) in emojis"
-               :key="index">{{item}}</div>
-        </div>
-      </Scroller>
-      <Scroller :data="emojis"
-                scrollX
-                class="scroll-wrapper3">
-        <div class="scroll-content">
-          <div class="scroll-item"
-               v-for="(item, index) in emojis"
-               :key="index">{{item}}</div>
-        </div>
       </Scroller>
       <div class="messages">
         <Card v-for="item in msgList"
@@ -80,21 +63,6 @@ export default {
   name: 'chats',
   components: { Avatar, Card, Scroller },
   setup() {
-    const emojis = reactive([
-      '👉🏼 😁 😂 🤣 👈🏼',
-      '😄 😅 😆 😉 😊',
-      '😫 😴 😌 😛 😜',
-      '👆🏻 😒 😓 😔 👇🏻',
-      '😑 😶 🙄 😏 😣',
-      '😞 😟 😤 😢 😭',
-      '🤑 😲 ☹️ 🙁 😖',
-      '👍 👎 👊 ✊ 🤛',
-      '☝️ ✋ 🤚 🖐 🖖',
-      '👍🏼 👎🏼 👊🏼 ✊🏼 🤛🏼',
-      '☝🏽 ✋🏽 🤚🏽 🖐🏽 🖖🏽',
-      '🌖 🌗 🌘 🌑 🌒'
-    ])
-
     const peoples = reactive([
       { name: 'william', status: 'online' },
       { name: 'william2', status: 'online' },
@@ -131,6 +99,54 @@ export default {
         time: '06:00 am',
         notify: random(5, 0),
         msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
+      },
+      {
+        name: 'Chris Borwd',
+        time: '06:00 am',
+        notify: random(5, 0),
+        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
+      },
+      {
+        name: 'Alice',
+        time: '06:00 am',
+        notify: random(5, 0),
+        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
+      },
+      {
+        name: 'Bob',
+        time: '06:00 am',
+        notify: random(5, 0),
+        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
+      },
+      {
+        name: 'Candy',
+        time: '06:00 am',
+        notify: random(5, 0),
+        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
+      },
+      {
+        name: 'Chris Borwd',
+        time: '06:00 am',
+        notify: random(5, 0),
+        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
+      },
+      {
+        name: 'Alice',
+        time: '06:00 am',
+        notify: random(5, 0),
+        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
+      },
+      {
+        name: 'Bob',
+        time: '06:00 am',
+        notify: random(5, 0),
+        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
+      },
+      {
+        name: 'Candy',
+        time: '06:00 am',
+        notify: random(5, 0),
+        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
       }
     ])
     const router = useRouter()
@@ -138,52 +154,11 @@ export default {
       console.log(name)
       router.push(`/chating/${name}`)
     }
-    return { peoples, chatClick, msgList, emojis }
+    return { peoples, chatClick, msgList }
   }
 }
 </script>
 <style lang='scss' scoped>
-.scroll-wrapper3 {
-  width: 90%;
-  margin: 80px auto;
-  white-space: nowrap;
-  border: 3px solid #42b983;
-  border-radius: 5px;
-  overflow: hidden;
-
-  .scroll-content {
-    display: inline-block;
-  }
-
-  .scroll-item {
-    height: 50px;
-    line-height: 50px;
-    font-size: 24px;
-    display: inline-block;
-    text-align: center;
-    padding: 0 10px;
-  }
-}
-.scroll-wrapper2 {
-  height: 400px;
-  overflow: hidden;
-  .scroll-item {
-    height: 50px;
-    line-height: 50px;
-    font-size: 24px;
-    font-weight: bold;
-    border-bottom: 1px solid #eee;
-    text-align: center;
-
-    &:nth-child(2n) {
-      background-color: #f3f5f7;
-    }
-
-    &:nth-child(2n + 1) {
-      background-color: #42b983;
-    }
-  }
-}
 .chats {
   .content {
     padding: 1.25rem 20px;
@@ -195,25 +170,16 @@ export default {
       margin: 2rem 0;
       width: 100%;
       white-space: nowrap;
-      border: 3px solid #42b983;
       overflow: hidden;
-      // display: flex;
-      // overflow: auto hidden;
-      // &::-webkit-scrollbar {
-      //   display: none;
-      // }
       .contacter {
-        // display: flex;
-        // flex-wrap: nowrap;
         padding: 0;
         margin: 0;
         display: inline-block;
         .user {
-          display: inline-block;
-          // display: flex;
+          display: inline-flex;
           width: 4.8rem;
-          // flex-direction: column;
-          // align-items: center;
+          flex-direction: column;
+          align-items: center;
           margin-right: 1.5rem;
           &:last-child {
             margin-right: 0;

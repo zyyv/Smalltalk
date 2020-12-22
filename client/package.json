@@ -9,6 +9,7 @@
     "@better-scroll/core": "^2.0.6",
     "ant-design-vue": "^2.0.0-beta.10",
     "axios": "^0.21.0",
+    "emoji-mart-vue-fast": "^7.0.7",
     "moment": "^2.29.1",
     "socket.io-client": "^3.0.4",
     "vue": "^3.0.0-rc.1",
