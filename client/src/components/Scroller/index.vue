@@ -7,6 +7,8 @@
 <script lang='ts'>
 import { defineComponent, ref, reactive, nextTick, watch } from 'vue'
 import BScroll, { BScrollInstance, Options } from '@better-scroll/core'
+import MouseWheel from '@better-scroll/mouse-wheel'
+BScroll.use(MouseWheel)
 
 function _init(elm: HTMLElement | string, option: Options): BScrollInstance {
   const scroll = new BScroll(elm, { ...option })
@@ -29,6 +31,13 @@ export default defineComponent({
      * 点击列表是否派发click事件
      */
     click: {
+      type: Boolean,
+      default: true
+    },
+    /**
+     * 是否开启纵向滚动
+     */
+    scrollY: {
       type: Boolean,
       default: true
     },
@@ -68,7 +77,9 @@ export default defineComponent({
       scroll.value = _init(wrapper.value, {
         probeType: props.probeType,
         click: props.click,
-        scrollX: props.scrollX
+        scrollX: props.scrollX,
+        scrollY: props.scrollY,
+        mouseWheel: true
       })
       if (props.listenScroll) {
         scroll.value.on('scroll', (pos: any) => {

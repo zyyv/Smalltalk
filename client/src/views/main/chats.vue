@@ -19,6 +19,7 @@
       </div>
       <Scroller :data="peoples"
                 scrollX
+                :scrollY='false'
                 class="contacter-wrapper">
         <ul class="contacter">
           <li class="user"

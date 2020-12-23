@@ -5,7 +5,7 @@
             :src="userInfo.avatar" />
     <h3 class="title">Hey，{{userInfo.name}}！</h3>
     <p class="desc">Please select a chat to start messaging.</p>
-    <!-- <Emoji /> -->
+    <Emoji />
 
   </div>
 </template>
