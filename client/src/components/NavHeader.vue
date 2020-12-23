@@ -22,10 +22,10 @@
 </template>
 
 <script lang='ts'>
-import { ref, reactive } from 'vue'
+import { defineComponent, ref, reactive } from 'vue'
 import { LeftOutlined } from '@ant-design/icons-vue'
 import { useRouter } from 'vue-router'
-export default {
+export default defineComponent({
   name: 'NavHeader',
   props: {
     background: { type: String, default: '#fff' },
@@ -39,7 +39,7 @@ export default {
       handleBack: () => router.back()
     }
   }
-}
+})
 </script>
 <style lang='scss' scoped>
 .navHeader {

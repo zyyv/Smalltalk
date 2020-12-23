@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { reactive, toRaw, toRefs } from 'vue'
+import { reactive, toRaw, toRefs, defineComponent } from 'vue'
 import { useForm } from '@ant-design-vue/use'
 import { message } from 'ant-design-vue'
 import { PlusOutlined, LoadingOutlined } from '@ant-design/icons-vue'
@@ -72,16 +72,16 @@ function useUpdate() {
       avatar: '',
       name: '',
       sign: '',
-      gender: 'unknow',
+      gender: 'unknow'
     },
     rules: {
       name: [
         {
           required: true,
-          message: 'Please input name',
-        },
-      ],
-    },
+          message: 'Please input name'
+        }
+      ]
+    }
   })
   const { validate, validateInfos } = useForm(state.form, state.rules)
 
@@ -103,7 +103,7 @@ function useUpdate() {
 function useAvatar() {
   const state = reactive({
     fileList: [],
-    loading: false,
+    loading: false
   })
 
   const handleChange = (info: any) => {
@@ -137,7 +137,7 @@ function useAvatar() {
   return { ...toRefs(state), handleChange, beforeUpload }
 }
 
-export default {
+export default defineComponent({
   name: 'update',
   components: { PlusOutlined, LoadingOutlined, Avatar },
   setup() {
@@ -159,10 +159,10 @@ export default {
     return {
       Update,
       ...useAvatar(),
-      ...rest,
+      ...rest
     }
-  },
-}
+  }
+})
 </script>
 <style lang="scss" scoped>
 .update {

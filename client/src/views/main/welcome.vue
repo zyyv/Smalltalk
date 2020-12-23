@@ -5,16 +5,17 @@
             :src="userInfo.avatar" />
     <h3 class="title">Hey，{{userInfo.name}}！</h3>
     <p class="desc">Please select a chat to start messaging.</p>
+    <!-- <Emoji /> -->
+
   </div>
-  <Emoji />
 </template>
 
 <script lang='ts'>
 import Avatar from '/@c/Avatar.vue'
 import Emoji from '/@c/Emoji/index.vue'
-import { ref, reactive, computed } from 'vue'
+import { defineComponent, ref, reactive, computed } from 'vue'
 import { useStore } from 'vuex'
-export default {
+export default defineComponent({
   name: 'welcome',
   components: { Avatar, Emoji },
   setup() {
@@ -23,7 +24,7 @@ export default {
       userInfo: computed(() => store.state.user.userInfo)
     }
   }
-}
+})
 </script>
 <style lang='scss' scoped>
 .welcome {

@@ -7,15 +7,15 @@
 <script>
 import { defineComponent, ref, reactive } from 'vue'
 import data from '/@/assets/json/apple.json'
-import { Picker, EmojiIndex } from 'emoji-mart-vue-fast'
+// import { Picker, EmojiIndex } from 'emoji-mart-vue-fast'
 export default defineComponent({
   name: 'Emoji',
-  components: { Picker },
+  // components: { Picker },
   setup() {
     console.log(data)
 
-    const emojiIndex = ref(new EmojiIndex(data))
-    return { emojiIndex }
+    // const emojiIndex = ref(new EmojiIndex(data))
+    // return { emojiIndex }
   }
 })
 </script>

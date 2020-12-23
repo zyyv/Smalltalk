@@ -18,13 +18,5 @@ module.exports = {
       changeOrigin: true,
       rewrite: (path: string) => path.replace(/^\/api/, '')
     }
-    // '/socket.io': {
-    //   target: 'http://localhost:9999',
-    //   changeOrigin: true
-    // },
-    // 'sockjs-node': {
-    //   target: 'http://localhost:9999',
-    //   changeOrigin: true
-    // },
   }
 }

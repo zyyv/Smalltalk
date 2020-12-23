@@ -118,26 +118,26 @@
 </template>
 
 <script lang="ts">
-import { ref, reactive, computed } from 'vue'
-import Avatar from "/@c/Avatar.vue"
+import { defineComponent, ref, reactive, computed } from 'vue'
+import Avatar from '/@c/Avatar.vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { httpGet } from '../../api/axios'
-export default {
+export default defineComponent({
   name: 'profile',
   components: { Avatar },
-  setup () {
+  setup() {
     const store = useStore()
     const router = useRouter()
-    const logOut = async ()=>{
+    const logOut = async () => {
       await store.dispatch('user/logout')
       router.push('/login')
     }
-    const link = path => router.push(path)
+    const link = (path: string) => router.push(path)
 
     return { link, logOut, userInfo: computed(() => store.state.user.userInfo) }
-  },
-}
+  }
+})
 </script>
 <style lang='scss' scoped>
 .profile {

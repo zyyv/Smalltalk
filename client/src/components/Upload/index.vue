@@ -21,37 +21,20 @@
 </template>
 
 <script lang='ts'>
-import { ref, reactive, toRefs, watchEffect } from 'vue'
+import { defineComponent, ref, reactive, toRefs, watchEffect } from 'vue'
 import { message } from 'ant-design-vue'
 import { InboxOutlined } from '@ant-design/icons-vue'
 import { httpGet } from '../../api/axios'
 import { random } from '/@/utils'
-// import * as qiniu from 'qiniu-js'
 
 function useUpload() {
-  const state = reactive({
-    action:
-      window.location.protocol === 'https:'
-        ? 'https://upload-z2.qiniup.com'
-        : 'http://upload-z2.qiniup.com',
-    list: [
-      // {
-      //   uid: '-1',
-      //   name: 'image.png',
-      //   status: 'done',
-      //   url:
-      //     'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      // },
-      // {
-      //   uid: '-5',
-      //   name: 'image.png',
-      //   status: 'error',
-      // },
-    ],
-  })
-  return {
-    ...toRefs(state),
-  }
+  const action = ref(
+    window.location.protocol === 'https:'
+      ? 'https://upload-z2.qiniup.com'
+      : 'http://upload-z2.qiniup.com'
+  )
+  const list = ref<any>([])
+  return { action, list }
 }
 
 /** 获取文件后缀名 */
@@ -64,14 +47,14 @@ function getSuffix(filename: string) {
   return suffix
 }
 
-export default {
+export default defineComponent({
   name: 'Upload',
   components: { InboxOutlined },
   setup() {
     const { action, list } = useUpload()
     const formData = reactive({
       token: '',
-      key: '',
+      key: ''
     })
     const domainUrl = ref('')
     const handleChange = ({ file, fileList }: any) => {
@@ -110,10 +93,10 @@ export default {
       action,
       list,
       beforeUpload,
-      handleRemove,
+      handleRemove
     }
-  },
-}
+  }
+})
 </script>
 <style lang='scss' scoped>
 </style>

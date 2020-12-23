@@ -2,7 +2,7 @@
   <div class="main">
     <router-view name="main"
                  v-slot="{ Component }">
-      <transition>
+      <transition name="fade">
         <component :is="Component" />
       </transition>
     </router-view>
@@ -10,9 +10,10 @@
 </template>
 
 <script lang='ts'>
-export default {
+import { defineComponent } from 'vue'
+export default defineComponent({
   name: 'Main'
-}
+})
 </script>
 <style lang='scss' scoped>
 .main {

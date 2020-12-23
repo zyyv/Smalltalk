@@ -14,17 +14,17 @@
 </template>
 
 <script lang='ts'>
-import { ref, reactive } from 'vue'
+import { defineComponent, ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-export default {
+export default defineComponent({
   name: '404',
   setup() {
     const router = useRouter()
     return {
-      backHome: () => router.replace('/'),
+      backHome: () => router.replace('/')
     }
-  },
-}
+  }
+})
 </script>
 <style lang='scss' scoped>
 .btn {

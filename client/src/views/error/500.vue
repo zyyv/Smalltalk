@@ -4,7 +4,8 @@
               title="500"
               sub-title="抱歉，服务器内部错误。">
       <template #extra>
-        <a-button @click="backHome" class="gradient-button btn">
+        <a-button @click="backHome"
+                  class="gradient-button btn">
           Back Home
         </a-button>
       </template>
@@ -13,18 +14,18 @@
 </template>
 
 <script lang='ts'>
-import { ref, reactive } from 'vue'
+import { defineComponent, ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-export default {
+export default defineComponent({
   name: '500',
   components: {},
   setup() {
     const router = useRouter()
     return {
-      backHome: () => router.replace('/'),
+      backHome: () => router.replace('/')
     }
-  },
-}
+  }
+})
 </script>
 <style lang='scss' scoped>
 .btn {

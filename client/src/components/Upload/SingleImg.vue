@@ -19,12 +19,12 @@
 </template>
 
 <script lang='ts'>
-import { ref, reactive, toRefs, SetupContext } from 'vue'
+import { defineComponent, ref, reactive, toRefs, SetupContext } from 'vue'
 import { message } from 'ant-design-vue'
 import {
   InboxOutlined,
   PlusOutlined,
-  LoadingOutlined,
+  LoadingOutlined
 } from '@ant-design/icons-vue'
 import { httpGet } from '/@/api/axios'
 import { random } from '/@/utils'
@@ -39,9 +39,9 @@ function useUpload(ctx: any) {
     loading: false,
     data: {
       token: '',
-      key: '',
+      key: ''
     },
-    domainUrl: '',
+    domainUrl: ''
   })
   const handleChange = ({ file, fileList }: any) => {
     if (file.status === 'uploading') {
@@ -94,22 +94,22 @@ function getSuffix(filename: string) {
   return suffix
 }
 
-export default {
+export default defineComponent({
   name: 'Upload',
   components: { InboxOutlined, PlusOutlined, LoadingOutlined },
   props: {
     src: String,
     tips: {
       type: String,
-      default: 'Upload',
-    },
+      default: 'Upload'
+    }
   },
   setup(props, ctx) {
     return {
-      ...useUpload(ctx),
+      ...useUpload(ctx)
     }
-  },
-}
+  }
+})
 </script>
 <style lang='scss' scoped>
 .avatar-bg {

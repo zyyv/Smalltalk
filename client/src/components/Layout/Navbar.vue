@@ -2,7 +2,7 @@
   <div class="z-nav z-navbar">
     <router-link class="logo"
                  to="/">
-      <img src="../../assets/logo.png"
+      <img src="https://qiniu-shop.zoombin.com/avatar.jpg"
            alt="">
     </router-link>
     <div class="actions">
@@ -36,18 +36,18 @@
 </template>
 
 <script>
-import Avatar from "/@c/Avatar.vue"
-import { ref, reactive } from "vue"
-import menus from "./menus"
-import { useStore } from "vuex"
-export default {
-  name: "Navbar",
+import Avatar from '/@c/Avatar.vue'
+import { defineComponent, ref, reactive } from 'vue'
+import menus from './menus'
+import { useStore } from 'vuex'
+export default defineComponent({
+  name: 'Navbar',
   components: { Avatar },
-  setup () {
+  setup() {
     const store = useStore()
     return { menus, userInfo: store.state.user.userInfo }
   }
-}
+})
 </script>
 <style lang='scss' scoped>
 .z-nav {

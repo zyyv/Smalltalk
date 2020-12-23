@@ -70,7 +70,9 @@
                            placement="left">
                   <template #title>
                     <div class="tips">
-                      <div v-if="!item.isliked" @click="liked(item._id)" class="tipItem">
+                      <div v-if="!item.isliked"
+                           @click="liked(item._id)"
+                           class="tipItem">
                         <svg width="1em"
                              height="1em"
                              viewBox="0 0 16 16"
@@ -81,7 +83,9 @@
                                 d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
                         </svg><span>点赞</span>
                       </div>
-                      <div v-else @click="disliked(item._id)" class="tipItem">
+                      <div v-else
+                           @click="disliked(item._id)"
+                           class="tipItem">
                         <svg width="1em"
                              height="1em"
                              viewBox="0 0 16 16"
@@ -120,9 +124,9 @@
                   </div>
                 </a-tooltip>
               </div>
-              <div 
-                   class="comments">
-                <div v-if="item.likes.length" class="head">
+              <div class="comments">
+                <div v-if="item.likes.length"
+                     class="head">
                   <div class="icon">
                     <svg width="1em"
                          height="1em"
@@ -136,11 +140,14 @@
                   </div>
                   <template v-for="(like,i) in item.likes"
                             :key="like._id">
-                    <span class="noSelected">{{like.name}}</span><span class="noSelected" v-if="i !== item.likes.length - 1">,</span>
+                    <span class="noSelected">{{like.name}}</span><span class="noSelected"
+                          v-if="i !== item.likes.length - 1">,</span>
                   </template>
                 </div>
-                <div v-if="item.comments.length" class="body">
-                  <div v-for="com in item.comments">
+                <div v-if="item.comments.length"
+                     class="body">
+                  <div v-for="com in item.comments"
+                       :key="com._id">
                     <span class="name noSelected">{{com.author.name}}</span>
                     <template v-if="com.replyed">
                       <span class="noSelected">回复</span><span class="name noSelected">{{com.replyed.author.name}}</span>
@@ -158,7 +165,7 @@
 </template>
 
 <script lang="ts">
-import { ref, reactive, computed } from 'vue'
+import { defineComponent, ref, reactive, computed } from 'vue'
 import Avatar from '/@c/Avatar.vue'
 import { useStore } from 'vuex'
 import { ZoneData } from '../../api'
@@ -175,36 +182,39 @@ function useView() {
   }
   return { posts, loadPosts }
 }
+interface Func {
+  (): void
+}
 
-function useLike(callback:Function) {
-  const liked = (postId) => {
-    ZoneData.liked({postId}).then(()=>{callback()})
+function useLike(callback: Func) {
+  const liked = (postId: string) => {
+    ZoneData.liked({ postId }).then(() => {
+      callback()
+    })
   }
-  const disliked = (postId) => {
-    ZoneData.disliked({postId}).then(()=>{callback()})
+  const disliked = (postId: string) => {
+    ZoneData.disliked({ postId }).then(() => {
+      callback()
+    })
   }
   return { liked, disliked }
 }
 
-export default {
+export default defineComponent({
   name: 'zone',
   components: { Avatar },
   setup() {
     const store = useStore()
-    // const showTooltip = ref(false)
     const { posts, loadPosts } = useView()
     loadPosts()
-
-  httpGet('https://qiniu-shop.zoombin.com/avatar.jpg?imageInfo').then(res=>{console.log(res)})
-
     return {
       posts,
       getDateByTime,
       ...useLike(loadPosts),
-      userInfo: computed(() => store.state.user.userInfo),
+      userInfo: computed(() => store.state.user.userInfo)
     }
-  },
-}
+  }
+})
 </script>
 <style lang='scss' scoped>
 .zone {

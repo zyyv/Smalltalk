@@ -13,28 +13,29 @@
 </template>
 
 <script lang='ts'>
-import { ref, reactive, toRefs } from 'vue'
+import { defineComponent, ref, reactive, toRefs } from 'vue'
 import NavHeader from '/@c/NavHeader.vue'
 import Upload from '/@c/Upload/index.vue'
 import Upload2 from '/@c/Upload/SingleImg.vue'
 
-export default {
+export default defineComponent({
   name: 'settings',
   components: { NavHeader, Upload, Upload2 },
   setup() {
     const a = reactive({
       form: {
-        img: '',
-      },
+        img: ''
+      }
     })
     function click() {
       console.log(a.form.img)
     }
     return {
-      ...toRefs(a),click
+      ...toRefs(a),
+      click
     }
-  },
-}
+  }
+})
 </script>
 <style lang='scss' scoped>
 </style>

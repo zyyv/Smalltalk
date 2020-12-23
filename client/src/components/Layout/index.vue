@@ -10,10 +10,11 @@
 import Main from './Main.vue'
 import Navbar from './Navbar.vue'
 import Sidebar from './Sidebar.vue'
-export default {
+import { defineComponent } from 'vue'
+export default defineComponent({
   name: 'layout',
-  components: { Main, Navbar, Sidebar },
-}
+  components: { Main, Navbar, Sidebar }
+})
 </script>
 <style lang='scss' scoped>
 .layout {

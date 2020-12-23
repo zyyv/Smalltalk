@@ -1,18 +1,18 @@
 <template>
   <div class="sidebar">
     <router-view v-slot="{ Component }">
-      <transition>
+      <transition name="fade">
         <component :is="Component" />
       </transition>
     </router-view>
   </div>
 </template>
 
-<script>
-import { ref, reactive } from 'vue'
-export default {
+<script lang='ts'>
+import { defineComponent } from 'vue'
+export default defineComponent({
   name: 'Sidebar'
-}
+})
 </script>
 <style lang='scss' scoped>
 .sidebar {

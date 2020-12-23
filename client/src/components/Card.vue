@@ -20,9 +20,9 @@
 </template>
 
 <script>
-import { ref, reactive } from 'vue'
+import { defineComponent, ref, reactive } from 'vue'
 import Avatar from './Avatar.vue'
-export default {
+export default defineComponent({
   name: 'card',
   props: {
     notify: {
@@ -31,7 +31,7 @@ export default {
     }
   },
   components: { Avatar }
-}
+})
 </script>
 <style lang='scss' scoped>
 .card {

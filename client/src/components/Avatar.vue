@@ -7,27 +7,27 @@
 </template>
 
 <script lang='ts'>
-import { ref, reactive, computed } from 'vue'
-export default {
+import { defineComponent, ref, reactive, computed } from 'vue'
+export default defineComponent({
   name: 'avatar',
   props: {
     src: String,
     online: {
       type: Boolean,
-      default: true,
+      default: true
     },
     radius: {
       type: String,
-      default: '50%',
+      default: '50%'
     },
     width: {
       type: [Number, String],
-      default: '4.4rem',
+      default: '4.4rem'
     },
     height: {
       type: [Number, String],
-      default: '4.4rem',
-    },
+      default: '4.4rem'
+    }
   },
   setup(props) {
     const isDef = (val: any) => val !== undefined && val !== null
@@ -41,11 +41,11 @@ export default {
     }
     const style = computed(() => ({
       width: addUnit(props.width),
-      height: addUnit(props.height),
+      height: addUnit(props.height)
     }))
     return { style }
-  },
-}
+  }
+})
 </script>
 <style lang='scss' scoped>
 .avatar {

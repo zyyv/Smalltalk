@@ -3,14 +3,12 @@
 </template>
 
 <script lang='ts'>
-import { ref, reactive } from 'vue'
-export default {
+import { defineComponent, ref, reactive } from 'vue'
+export default defineComponent({
   name: 'messaging',
   components: {},
   setup() {
     return {}
   }
-}
+})
 </script>
-<style lang='scss' scoped>
-</style>

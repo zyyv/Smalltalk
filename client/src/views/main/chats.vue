@@ -52,14 +52,14 @@
 </template>
 
 <script lang='ts'>
-import { ref, reactive } from 'vue'
+import { defineComponent, ref, reactive } from 'vue'
 import Avatar from '/@c/Avatar.vue'
 import Card from '/@c/Card.vue'
 import Scroller from '/@c/Scroller/index.vue'
 import { random } from '/@/utils'
 import { useRouter } from 'vue-router'
 
-export default {
+export default defineComponent({
   name: 'chats',
   components: { Avatar, Card, Scroller },
   setup() {
@@ -156,7 +156,7 @@ export default {
     }
     return { peoples, chatClick, msgList }
   }
-}
+})
 </script>
 <style lang='scss' scoped>
 .chats {

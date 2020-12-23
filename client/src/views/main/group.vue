@@ -116,14 +116,14 @@
 </template>
 
 <script>
-import { ref, reactive, toRaw } from 'vue'
+import { defineComponent, ref, reactive, toRaw } from 'vue'
 import { useForm } from '@ant-design-vue/use'
 import { InboxOutlined } from '@ant-design/icons-vue'
 import Card from '/@c/Card.vue'
-export default {
+export default defineComponent({
   name: 'group',
   components: { InboxOutlined, Card },
-  setup () {
+  setup() {
     const modelRef = reactive({
       photo: '',
       name: '',
@@ -133,14 +133,14 @@ export default {
     const rulesRef = reactive({
       name: [
         {
-          message: 'Please input name',
-        },
+          message: 'Please input name'
+        }
       ],
       description: [
         {
-          message: 'Please input description',
-        },
-      ],
+          message: 'Please input description'
+        }
+      ]
     })
     const { validate, validateInfos } = useForm(modelRef, rulesRef)
     const onSubmit = (e) => {
@@ -177,7 +177,7 @@ export default {
       handleChange
     }
   }
-}
+})
 </script>
 <style lang='scss' scoped>
 .group {

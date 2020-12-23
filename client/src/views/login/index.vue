@@ -60,7 +60,15 @@
 </template>
 
 <script lang="ts">
-import { ref, reactive, toRaw, onBeforeUnmount, toRef, Ref } from 'vue'
+import {
+  defineComponent,
+  ref,
+  reactive,
+  toRaw,
+  onBeforeUnmount,
+  toRef,
+  Ref
+} from 'vue'
 import { SwapOutlined } from '@ant-design/icons-vue'
 import { useStore } from 'vuex'
 import { message } from 'ant-design-vue'
@@ -102,7 +110,7 @@ function useSmscode(num: number, phone: Ref<string>) {
   }
   return {
     GetSmsCode: GetCode,
-    codeBtnText,
+    codeBtnText
   }
 }
 
@@ -119,7 +127,7 @@ function useLogin() {
     pwd: '',
     remember: true,
     code: '',
-    type: 'I', // I -> smscode  II -> pwd
+    type: 'I' // I -> smscode  II -> pwd
   })
   const loading = ref(false)
   const handleTypeChange = () => {
@@ -156,11 +164,11 @@ function useLogin() {
     form,
     loading,
     handleTypeChange,
-    handleSubmit,
+    handleSubmit
   }
 }
 
-export default {
+export default defineComponent({
   name: 'login',
   components: { SwapOutlined },
   setup() {
@@ -180,10 +188,10 @@ export default {
       form,
       Submit,
       ...rest,
-      ...useSmscode(30, toRef(form, 'phone')),
+      ...useSmscode(30, toRef(form, 'phone'))
     }
-  },
-}
+  }
+})
 </script>
 <style lang="scss" scoped>
 .login {
