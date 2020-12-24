@@ -14,7 +14,7 @@ const Connect = () => {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }).then(() => {
-    console.log('mongodb connect success')
+    console.log('\033[33mmongodb connect success\033[0m')
   }).catch(err => {
     console.log(err)
   })

@@ -86,7 +86,15 @@
   </div>
 </template>
 <script lang='ts'>
-import { defineComponent, ref, reactive, toRefs, watchEffect } from 'vue'
+import {
+  defineComponent,
+  ref,
+  reactive,
+  toRefs,
+  watchEffect,
+  getCurrentInstance,
+  ComponentInternalInstance
+} from 'vue'
 import Avatar from '/@c/Avatar.vue'
 import {
   SmileOutlined,
@@ -98,6 +106,12 @@ import Emoji from '/@c/Emoji/index.vue'
 import Scroller from '/@c/Scroller/index.vue'
 import Upload from '/@c/Upload/primary.vue'
 import { useRoute, onBeforeRouteUpdate } from 'vue-router'
+
+function useIo() {
+  const { ctx }: any = getCurrentInstance()
+  const io = ctx.$socket.io
+  return io
+}
 function useChat() {
   const state = reactive({
     name: ''
@@ -107,13 +121,13 @@ function useChat() {
   state.name = chatId as string
   return { ...toRefs(state) }
 }
-function useSend() {
+function useSend(io: any) {
   const state = reactive({
     msg: ''
   })
   const handleSend = () => {
     if (!state.msg) return
-    console.log(state.msg)
+    io.emit('msg', { msg: state.msg })
     state.msg = ''
   }
   const emojiSelected = (item: any) => {
@@ -134,7 +148,8 @@ export default defineComponent({
     Scroller
   },
   setup() {
-    return { ...useChat(), ...useSend() }
+    const io = useIo()
+    return { ...useChat(), ...useSend(io) }
   }
 })
 </script>
