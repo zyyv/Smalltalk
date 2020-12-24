@@ -1,1 +1,209 @@
 @import './root.scss';
+
+.ant-form {
+  .ant-form-item {
+    >.ant-form-item-label {
+      >label {
+        line-height: 1.6 !important;
+        color: var(--color) !important;
+        font-weight: 400 !important;
+      }
+    }
+  }
+}
+
+.ant-radio {
+  &:hover {
+    .ant-radio-inner {
+      border-color: #AAB0B7 !important;
+    }
+  }
+}
+
+.ant-radio-wrapper {
+  color: var(--color);
+}
+
+.ant-radio-input:focus+.ant-radio-inner {
+  box-shadow: rgba(170, 176, 183, 0.2) 0px 0px 0px 3px;
+}
+
+.ant-radio-checked .ant-radio-inner {
+  border-color: #AAB0B7 !important;
+
+  &::after {
+    background-color: #AAB0B7;
+  }
+
+  &:hover {
+    border-color: #AAB0B7 !important;
+  }
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #AAB0B7;
+  border-color: #AAB0B7;
+}
+
+.ant-checkbox-wrapper:hover .ant-checkbox-inner,
+.ant-checkbox:hover .ant-checkbox-inner,
+.ant-checkbox-input:focus+.ant-checkbox-inner {
+  border-color: #AAB0B7;
+}
+
+.ant-checkbox-checked::after {
+  border-color: #AAB0B7;
+}
+
+.friendTooltip {
+  .ant-tooltip-content {
+    .ant-tooltip-arrow {
+      &::before {
+        background: none;
+      }
+    }
+
+    .ant-tooltip-inner {
+      padding: 0;
+      background: #fff;
+
+      .menus {
+        margin: 0px;
+        background-color: rgb(255, 255, 255);
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 2.75rem;
+        padding: 0.625rem;
+        font-size: 1.275rem;
+        color: var(--color);
+        min-width: calc(10rem + 4.55vw);
+        border: 0px solid rgba(0, 0, 0, 0.15);
+        border-radius: 0.475rem;
+
+        .menu {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 4px;
+          width: 100%;
+          padding: 0.5rem 1rem;
+          border-radius: 0.475rem;
+
+          &:hover {
+            cursor: pointer;
+            background: #f5f6fa;
+          }
+        }
+      }
+    }
+  }
+}
+
+.ant-modal-content {
+  border-radius: 0.625rem;
+
+  .ant-modal-header {
+    border-top-left-radius: 0.625rem;
+    border-top-right-radius: 0.625rem;
+  }
+}
+
+.avatar-uploader {
+  &.hasSrc {
+    .ant-upload {
+      border: 0 !important;
+
+      &:hover {
+        border: 0 !important;
+      }
+    }
+  }
+
+  .ant-upload {
+    border-radius: 50%;
+
+    &.ant-upload-select-picture-card {
+      &:hover {
+        border-color: var(--color);
+      }
+
+      .ant-upload {
+        padding: 0 !important;
+      }
+    }
+  }
+}
+
+button[ant-click-animating-without-extra-node]:after {
+  border: 0 none;
+  animation: none 0 ease 0 1 normal;
+}
+
+.zoneTooltip {
+  .ant-tooltip-arrow::before {
+    background-color: rgba($color: #000000, $alpha: 0.85);
+  }
+
+  .ant-tooltip-inner {
+    padding: 2px 4px;
+    background-color: rgba($color: #000000, $alpha: 0.85);
+  }
+}
+
+.ant-message-notice {
+  .ant-message-notice-content {
+    padding: 0;
+    background: none;
+    border-radius: 0.475rem;
+    overflow: hidden;
+    min-width: 15rem;
+
+    .ant-message-custom-content {
+      padding: 1rem 1.6rem;
+
+      &.ant-message-success {
+        color: #67c23a;
+        background-color: #f0f9eb;
+
+        .anticon {
+          color: #67c23a;
+        }
+      }
+
+      &.ant-message-info {
+        color: #909399;
+        background-color: #edf2fc;
+
+        .anticon {
+          color: #909399;
+        }
+      }
+
+      &.ant-message-error {
+        color: #f56c6c;
+        background-color: #fef0f0;
+
+        .anticon {
+          color: #f56c6c;
+        }
+      }
+
+      &.ant-message-warning {
+        color: #e6a23c;
+        background-color: #fdf6ec;
+
+        .anticon {
+          color: #e6a23c;
+        }
+      }
+
+      &.ant-message-loading {
+        background-color: #fff;
+      }
+    }
+  }
+}
+
+.customEmoji {
+  .ant-popover-inner-content {
+    padding: .8rem;
+  }
+}

@@ -29,39 +29,45 @@
     <div class="foot">
       <div class="wrapper">
         <div class="left">
-          <a-textarea class="textarea"
+          <a-textarea v-model:value="msg"
+                      class="textarea"
                       placeholder="Type your message..."
                       :auto-size="{ minRows: 1, maxRows: 3 }" />
         </div>
         <div class="right">
           <div class="icon face">
             <!-- <SmileOutlined /> -->
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 width="1em"
-                 height="1em"
-                 fill="currentColor"
-                 class="bi bi-emoji-smile"
-                 viewBox="0 0 16 16">
-              <path fill-rule="evenodd"
-                    d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-              <path fill-rule="evenodd"
-                    d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683z" />
-              <path d="M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
-            </svg>
+            <Emoji @select="emojiSelected">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                   width="1em"
+                   height="1em"
+                   fill="currentColor"
+                   class="bi bi-emoji-smile"
+                   viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                <path fill-rule="evenodd"
+                      d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683z" />
+                <path d="M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
+              </svg>
+            </Emoji>
           </div>
           <div class="icon files">
             <!-- <PaperClipOutlined /> -->
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 width="1em"
-                 height="1em"
-                 fill="currentColor"
-                 class="bi bi-link-45deg"
-                 viewBox="0 0 16 16">
-              <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z" />
-              <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z" />
-            </svg>
+            <Upload style="display:flex;align-items:center;">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                   width="1em"
+                   height="1em"
+                   fill="currentColor"
+                   class="bi bi-link-45deg"
+                   viewBox="0 0 16 16">
+                <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z" />
+                <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z" />
+              </svg>
+            </Upload>
           </div>
-          <div class="icon send">
+          <div @click="handleSend"
+               class="icon send">
             <!-- <SendOutlined /> -->
             <svg xmlns="http://www.w3.org/2000/svg"
                  width="1em"
@@ -87,9 +93,31 @@ import {
   SendOutlined
 } from '@ant-design/icons-vue'
 import NavHeader from '/@c/NavHeader.vue'
+import Emoji from '/@c/Emoji/index.vue'
+import Upload from '/@c/Upload/primary.vue'
 import { useRoute, onBeforeRouteUpdate } from 'vue-router'
 function useChat() {
-  const state = reactive({})
+  const state = reactive({
+    name: ''
+  })
+  const route = useRoute()
+  const { chatId } = route.params
+  state.name = chatId as string
+  return { ...toRefs(state) }
+}
+function useSend() {
+  const state = reactive({
+    msg: ''
+  })
+  const handleSend = () => {
+    if (!state.msg) return
+    console.log(state.msg)
+    state.msg = ''
+  }
+  const emojiSelected = (item: any) => {
+    state.msg += item.value
+  }
+  return { ...toRefs(state), handleSend, emojiSelected }
 }
 export default defineComponent({
   name: 'chating',
@@ -98,17 +126,12 @@ export default defineComponent({
     NavHeader,
     SmileOutlined,
     PaperClipOutlined,
-    SendOutlined
+    SendOutlined,
+    Emoji,
+    Upload
   },
   setup() {
-    const state = reactive<any>({
-      name: ''
-    })
-    const route = useRoute()
-    const { chatId } = route.params
-    state.name = chatId
-
-    return { ...toRefs(state) }
+    return { ...useChat(), ...useSend() }
   }
 })
 </script>
@@ -244,6 +267,23 @@ export default defineComponent({
             color: #fff;
             &:hover {
               background: #0064da;
+            }
+          }
+          svg {
+            outline: none;
+          }
+          &.files {
+            position: relative;
+            svg {
+              font-size: 2.2rem;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              color: #aab0b7;
+              &:hover {
+                color: rgba(33, 37, 41, 0.5);
+              }
             }
           }
         }

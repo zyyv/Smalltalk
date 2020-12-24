@@ -177,104 +177,6 @@ h6,
   white-space: nowrap;
 }
 
-.ant-form {
-  .ant-form-item {
-    > .ant-form-item-label {
-      > label {
-        line-height: 1.6 !important;
-        color: var(--color) !important;
-        font-weight: 400 !important;
-      }
-    }
-  }
-}
-
-.ant-radio {
-  &:hover {
-    .ant-radio-inner {
-      border-color: #AAB0B7 !important;
-    }
-  }
-}
-.ant-radio-wrapper {
-  color: var(--color);
-}
-.ant-radio-input:focus + .ant-radio-inner {
-  box-shadow: rgba(170, 176, 183, 0.2) 0px 0px 0px 3px;
-}
-.ant-radio-checked .ant-radio-inner {
-  border-color: #AAB0B7 !important;
-  &::after {
-    background-color: #AAB0B7;
-  }
-  &:hover {
-    border-color: #AAB0B7 !important;
-  }
-}
-
-.ant-checkbox-checked .ant-checkbox-inner {
-  background-color: #AAB0B7;
-  border-color: #AAB0B7;
-}
-.ant-checkbox-wrapper:hover .ant-checkbox-inner,
-.ant-checkbox:hover .ant-checkbox-inner,
-.ant-checkbox-input:focus + .ant-checkbox-inner {
-  border-color: #AAB0B7;
-}
-.ant-checkbox-checked::after {
-  border-color: #AAB0B7;
-}
-.friendTooltip {
-  .ant-tooltip-content {
-    .ant-tooltip-arrow {
-      &::before {
-        background: none;
-      }
-    }
-
-    .ant-tooltip-inner {
-      padding: 0;
-      background: #fff;
-
-      .menus {
-        margin: 0px;
-        background-color: rgb(255, 255, 255);
-        box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 2.75rem;
-        padding: 0.625rem;
-        font-size: 1.275rem;
-        color: var(--color);
-        min-width: calc(10rem + 4.55vw);
-        border: 0px solid rgba(0, 0, 0, 0.15);
-        border-radius: 0.475rem;
-
-        .menu {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 4px;
-          width: 100%;
-          padding: 0.5rem 1rem;
-          border-radius: 0.475rem;
-
-          &:hover {
-            cursor: pointer;
-            background: #f5f6fa;
-          }
-        }
-      }
-    }
-  }
-}
-
-.ant-modal-content {
-  border-radius: 0.625rem;
-
-  .ant-modal-header {
-    border-top-left-radius: 0.625rem;
-    border-top-right-radius: 0.625rem;
-  }
-}
-
 .f-input {
   height: calc(1.6em + 2.5rem + 2px);
   padding: 1.4rem 1.25rem;
@@ -289,15 +191,18 @@ h6,
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
     -webkit-box-shadow 0.15s ease-in-out;
   outline: none;
+
   &:focus {
     border-color: #edeef6 !important;
     outline: none;
     box-shadow: none;
   }
+
   &:hover {
     border-color: #edeef6 !important;
   }
 }
+
 .f-textarea {
   height: auto;
   padding: 1.4rem 1.25rem;
@@ -313,24 +218,29 @@ h6,
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
     -webkit-box-shadow 0.15s ease-in-out;
   outline: none;
+
   &:focus {
     border-color: #edeef6 !important;
     outline: none;
     box-shadow: none;
   }
+
   &:hover {
     border-color: #edeef6 !important;
   }
 }
+
 .has-error {
   .f-input {
     &:hover {
       border-color: var(--indigo) !important;
     }
+
     &:focus {
       border-color: var(--indigo) !important;
     }
   }
+
   .ant-form-explain {
     color: var(--indigo) !important;
   }
@@ -355,18 +265,22 @@ h6,
     }
   }
 }
+
 .f-smsCode {
   position: relative;
-  > input {
+
+  >input {
     padding-right: 12rem !important;
   }
+
   .ant-input-suffix {
     position: absolute;
     top: 0;
     height: 100%;
     right: 0;
     transform: none;
-    > button {
+
+    >button {
       height: 100%;
       border: none;
       background-color: #edeef6;
@@ -384,32 +298,6 @@ h6,
     border-radius: 0.375rem;
   }
 }
-.avatar-uploader {
-  &.hasSrc {
-    .ant-upload {
-      border: 0 !important;
-      &:hover {
-        border: 0 !important;
-      }
-    }
-  }
-  .ant-upload {
-    border-radius: 50%;
-    &.ant-upload-select-picture-card {
-      &:hover {
-        border-color: var(--color);
-      }
-      .ant-upload {
-        padding: 0 !important;
-      }
-    }
-  }
-}
-
-button[ant-click-animating-without-extra-node]:after {
-  border: 0 none;
-  animation: none 0 ease 0 1 normal;
-}
 
 .input-group {
   position: relative;
@@ -419,7 +307,7 @@ button[ant-click-animating-without-extra-node]:after {
   width: 100%;
   margin-bottom: 1.25rem;
 
-  > input {
+  >input {
     display: block;
     flex: 1 1 0%;
     height: calc(1.6em + 2rem + 2px);
@@ -437,7 +325,7 @@ button[ant-click-animating-without-extra-node]:after {
     outline: none;
   }
 
-  > div {
+  >div {
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -453,18 +341,16 @@ button[ant-click-animating-without-extra-node]:after {
 }
 
 .gradient-text {
-  background: linear-gradient(
-    264.51deg,
-    #ffe580 4.38%,
-    #ff7571 11.51%,
-    #ff7270 25.06%,
-    #ea5dad 36.04%,
-    #c2a0fd 47.63%,
-    #9867f0 59.03%,
-    #3bf0e4 69.96%,
-    #33ce43 83.74%,
-    #b2f4b6 95.62%
-  );
+  background: linear-gradient(264.51deg,
+      #ffe580 4.38%,
+      #ff7571 11.51%,
+      #ff7270 25.06%,
+      #ea5dad 36.04%,
+      #c2a0fd 47.63%,
+      #9867f0 59.03%,
+      #3bf0e4 69.96%,
+      #33ce43 83.74%,
+      #b2f4b6 95.62%);
   background-position: 58% 50%;
   background-size: 500%;
   -webkit-background-clip: text;
@@ -491,6 +377,7 @@ button[ant-click-animating-without-extra-node]:after {
   color: var(--white);
   transition: background 0.4s ease-in-out, border-color 0.4s ease-in-out,
     color 0.4s ease-in-out;
+
   &:focus {
     color: #fff;
   }
@@ -508,6 +395,7 @@ button[ant-click-animating-without-extra-node]:after {
     transform: translate3d(0, 0, 0);
     transition: background 0.4s ease-in-out;
   }
+
   &::after {
     content: '';
     width: 100%;
@@ -521,24 +409,24 @@ button[ant-click-animating-without-extra-node]:after {
     backface-visibility: hidden;
     z-index: -3;
     background: transparent;
-    background: linear-gradient(
-      264.51deg,
-      #ffe580 4.38%,
-      #ff7571 11.51%,
-      #ff7270 25.06%,
-      #ea5dad 36.04%,
-      #c2a0fd 47.63%,
-      #9867f0 59.03%,
-      #42ba96 69.96%,
-      #20c997 83.74%,
-      #b2f4b6 95.62%
-    );
+    background: linear-gradient(264.51deg,
+        #ffe580 4.38%,
+        #ff7571 11.51%,
+        #ff7270 25.06%,
+        #ea5dad 36.04%,
+        #c2a0fd 47.63%,
+        #9867f0 59.03%,
+        #42ba96 69.96%,
+        #20c997 83.74%,
+        #b2f4b6 95.62%);
     background-position: 58% 50%;
     background-size: 500%;
     animation: gradient-shift 30s ease infinite;
   }
+
   &:hover {
     color: #fff;
+
     &::before {
       background: transparent;
     }
@@ -571,59 +459,5 @@ button[ant-click-animating-without-extra-node]:after {
 
   100% {
     background-position: 58% 50%;
-  }
-}
-
-.zoneTooltip {
-  .ant-tooltip-arrow::before {
-    background-color: rgba($color: #000000, $alpha: 0.85);
-  }
-  .ant-tooltip-inner {
-    padding: 2px 4px;
-    background-color: rgba($color: #000000, $alpha: 0.85);
-  }
-}
-
-.ant-message-notice {
-  .ant-message-notice-content {
-    padding: 0;
-    background: none;
-    border-radius: 0.475rem;
-    overflow: hidden;
-    min-width: 15rem;
-    .ant-message-custom-content {
-      padding: 1rem 1.6rem;
-      &.ant-message-success {
-        color: #67c23a;
-        background-color: #f0f9eb;
-        .anticon {
-          color: #67c23a;
-        }
-      }
-      &.ant-message-info {
-        color: #909399;
-        background-color: #edf2fc;
-        .anticon {
-          color: #909399;
-        }
-      }
-      &.ant-message-error {
-        color: #f56c6c;
-        background-color: #fef0f0;
-        .anticon {
-          color: #f56c6c;
-        }
-      }
-      &.ant-message-warning {
-        color: #e6a23c;
-        background-color: #fdf6ec;
-        .anticon {
-          color: #e6a23c;
-        }
-      }
-      &.ant-message-loading {
-        background-color: #fff;
-      }
-    }
   }
 }
