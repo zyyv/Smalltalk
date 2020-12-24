@@ -3,28 +3,29 @@
     <NavHeader class="head"
                :title="name || 'Chris'" />
     <div class="body">
-      <div class="messageList">
-        <template v-for="i in 10"
-                  :key="i">
-          <div class="messageItem notme">
-            <div>
-              <Avatar class="avatar"
-                      :online="false"
-                      src="http://ql61yf5hl.hn-bkt.clouddn.com/1608021828527-8669.jfif" />
+      <Scroller class="scroll-wrapper">
+        <div class="messageList">
+          <template v-for="i in 10"
+                    :key="i">
+            <div class="messageItem notme">
+              <div>
+                <Avatar class="avatar"
+                        :online="false"
+                        src="http://ql61yf5hl.hn-bkt.clouddn.com/1608021828527-8669.jfif" />
+              </div>
+              <div class="messageBody">明天约吗？</div>
             </div>
-            <div class="messageBody">明天约吗？</div>
-          </div>
-          <div class="messageItem me">
-            <div>
-              <Avatar class="avatar"
-                      :online="false"
-                      src="http://ql61yf5hl.hn-bkt.clouddn.com/1608021828527-8669.jfif" />
+            <div class="messageItem me">
+              <div>
+                <Avatar class="avatar"
+                        :online="false"
+                        src="http://ql61yf5hl.hn-bkt.clouddn.com/1608021828527-8669.jfif" />
+              </div>
+              <div class="messageBody">明天约吗？</div>
             </div>
-            <div class="messageBody">明天约吗？</div>
-          </div>
-        </template>
-
-      </div>
+          </template>
+        </div>
+      </Scroller>
     </div>
     <div class="foot">
       <div class="wrapper">
@@ -94,6 +95,7 @@ import {
 } from '@ant-design/icons-vue'
 import NavHeader from '/@c/NavHeader.vue'
 import Emoji from '/@c/Emoji/index.vue'
+import Scroller from '/@c/Scroller/index.vue'
 import Upload from '/@c/Upload/primary.vue'
 import { useRoute, onBeforeRouteUpdate } from 'vue-router'
 function useChat() {
@@ -128,7 +130,8 @@ export default defineComponent({
     PaperClipOutlined,
     SendOutlined,
     Emoji,
-    Upload
+    Upload,
+    Scroller
   },
   setup() {
     return { ...useChat(), ...useSend() }
@@ -152,59 +155,63 @@ export default defineComponent({
     &::-webkit-scrollbar {
       display: none;
     }
-    > .messageList {
-      width: 100%;
-      // height: 100%;
-      .messageItem {
-        display: flex;
-        align-items: flex-end;
-        margin-bottom: 2rem;
-        &:last-child {
-          margin-bottom: 0;
-        }
-        &.notme {
-          .messageBody {
-            margin-left: 1.5rem;
-            border-bottom-left-radius: 0;
-            &::after {
-              left: -0.85rem;
+    .scroll-wrapper {
+      height: 100%;
+      overflow: hidden;
+      .messageList {
+        width: 100%;
+        // height: 100%;
+        .messageItem {
+          display: flex;
+          align-items: flex-end;
+          margin-bottom: 2rem;
+          &:last-child {
+            margin-bottom: 0;
+          }
+          &.notme {
+            .messageBody {
+              margin-left: 1.5rem;
+              border-bottom-left-radius: 0;
+              &::after {
+                left: -0.85rem;
+              }
             }
           }
-        }
-        &.me {
-          flex-direction: row-reverse;
-          .messageBody {
-            margin-right: 1.5rem;
-            border-bottom-right-radius: 0;
-            background-color: #4198ff;
-            color: #fff;
-            &::after {
-              right: -0.85rem;
-              border-color: transparent transparent #4198ff transparent;
+          &.me {
+            flex-direction: row-reverse;
+            .messageBody {
+              margin-right: 1.5rem;
+              border-bottom-right-radius: 0;
+              background-color: #4198ff;
+              color: #fff;
+              &::after {
+                right: -0.85rem;
+                border-color: transparent transparent #4198ff transparent;
+              }
             }
           }
-        }
-        .avatar {
-          flex: 0 0 4.4rem;
-        }
-        .messageBody {
-          position: relative;
-          width: fit-content;
-          max-width: 60%;
-          padding: 1.2rem;
-          line-height: 1.5;
-          font-size: 1.4rem;
-          background-color: #f5f6fa;
-          border-radius: 0.8rem;
-          &::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            width: 0;
-            height: 0;
-            border-color: transparent transparent #f5f6fa transparent;
-            border-style: solid;
-            border-width: 1rem;
+          .avatar {
+            flex: 0 0 4.4rem;
+          }
+          .messageBody {
+            position: relative;
+            width: fit-content;
+            max-width: 60%;
+            padding: 1.2rem;
+            line-height: 1.5;
+            font-size: 1.4rem;
+            background-color: #f5f6fa;
+            border-radius: 0.8rem;
+            &::after {
+              content: '';
+              position: absolute;
+              bottom: 0;
+              width: 0;
+              height: 0;
+              border-color: transparent transparent #f5f6fa transparent;
+              border-style: solid;
+              border-width: 1rem;
+            }
           }
         }
       }

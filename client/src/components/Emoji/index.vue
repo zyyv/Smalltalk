@@ -8,23 +8,36 @@
                 class="wrapper">
         <div class="emoji-list"
              :style="{width:`${col * (2.8 + 0.4)}rem`}">
-          <a-popover v-model:visible="item.show"
-                     v-for="item in datas"
-                     :key="item.name"
-                     overlayClassName="customEmoji"
-                     placement="top">
-            <template #content>
+          <template v-if="type === 'I'">
+            <a-popover v-model:visible="item.show"
+                       v-for="item in datas"
+                       :key="item.name"
+                       overlayClassName="customEmoji"
+                       placement="top">
+              <template #content>
+                <div @click="handleSelect(item)"
+                     class="emoji-item"
+                     :style="{ 'background-image': `url(${item.hover})` }"></div>
+                <div class="emoji-info">{{item.info}}</div>
+              </template>
               <div @click="handleSelect(item)"
+                   @touchstart="item.show=true"
+                   @touchend="item.show=false"
                    class="emoji-item"
-                   :style="{ 'background-image': `url(${item.hover})` }"></div>
-              <div class="emoji-info">{{item.info}}</div>
-            </template>
+                   :style="{ 'background-image': `url(${item.src})` }"></div>
+            </a-popover>
+          </template>
+          <template v-else
+                    v-for="item in datas"
+                    :key="item.name">
             <div @click="handleSelect(item)"
-                 @touchstart="item.show=true"
-                 @touchend="item.show=false"
+                 @mouseenter="item.display = item.hover"
+                 @mouseleave="item.display = item.src"
+                 @touchstart="item.display = item.hover"
+                 @touchend="item.display = item.src"
                  class="emoji-item"
-                 :style="{ 'background-image': `url(${item.src})` }"></div>
-          </a-popover>
+                 :style="{ 'background-image': `url(${item.display})` }"></div>
+          </template>
         </div>
       </Scroller>
     </template>
@@ -59,6 +72,7 @@ interface Emoji {
   hover: string
   value: string
   show: boolean
+  display: string
 }
 function useData() {
   const host = 'http://ql61yf5hl.hn-bkt.clouddn.com/'
@@ -67,7 +81,8 @@ function useData() {
       ...it,
       src: `${host}${it.src}`,
       hover: `${host}${it.hover}`,
-      show: false
+      show: false,
+      display: `${host}${it.src}`
     }
   })
   const datas = reactive(emojiData)
@@ -86,6 +101,10 @@ export default defineComponent({
     col: {
       type: Number,
       default: 8
+    },
+    type: {
+      type: String,
+      default: 'II' // I | II
     }
   },
   setup(props, ctx) {
