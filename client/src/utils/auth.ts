@@ -22,3 +22,6 @@ export const getUserInfo = () => {
 }
 export const setUserInfo = (userInfo: object) => getStorage().setItem('userInfo', JSON.stringify(userInfo))
 export const removeUserInfo = () => getStorage().removeItem('userInfo')
+
+export const getDevice = () => getStorage().getItem('device')
+export const setDevice = (device: string) => getStorage().setItem('device', device)
