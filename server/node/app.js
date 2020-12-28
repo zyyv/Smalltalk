@@ -18,7 +18,7 @@ app.use(error)
 app.use(xmlParser())
 app.use(bodyParser())
 app.use(cors())
-app.use(static(path.resolve(__dirname, './public/client')))
+// app.use(static(path.resolve(__dirname, './public/client')))
 app.use(router.routes()).use(router.allowedMethods())
 
 creatSocket(server)
