@@ -1,7 +1,34 @@
-# 项目目录
+# SmallTalk
 
-> client 前端目录
+>  a new smaller wechat 
 
-> serve 后端目录
+## Project setup
 
-> public 公共资源 ，主要存放文档、api、及前后端相关资源
+```
+npm install
+```
+
+若用 `cnpm` 初次安装务必使用 `ci` 命令
+
+```
+cnpm install
+```
+
+
+
+### Compiles and hot-reloads for development
+
+```
+npm run dev
+```
+
+
+
+### Compiles and minifies for production
+
+```
+npm run build
+```
+
+
+
