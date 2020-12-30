@@ -54,7 +54,7 @@
           </a-button>
         </a-form-item>
       </a-form>
-      <p class="msg">© 2020 Chris. All rights reserved.</p>
+      <p class="msg">© 2020 Chris. 蜀ICP备2020037206号.</p>
     </div>
   </div>
 </template>
