@@ -5,6 +5,7 @@ const pathResolve = (src: string) => resolve(__dirname, src)
 const pathName = '/chat'
 
 module.exports = {
+  base: '.',
   alias: {
     '/@/': pathResolve('src'),
     '/@c/': pathResolve('src/components'),
