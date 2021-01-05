@@ -9,7 +9,7 @@ import 'ant-design-vue/dist/antd.css'
 import '/@/styles/main.scss'
 
 const app = createApp(App)
-const socketConnection = SocketIO(process.env.NODE_ENV === 'development' ? 'http://localhost:9999' : 'http://www.chrisying.cn/chat/api',)
+const socketConnection = SocketIO(process.env.NODE_ENV === 'development' ? 'http://localhost:9999' : 'http://chrisying.cn/chat/api',)
 
 app.config.globalProperties.$socket = new VueSocketIO({
     debug: process.env.NODE_ENV === 'development',

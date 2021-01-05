@@ -5,7 +5,7 @@ import { getToken, removeToken } from '/@/utils/auth'
 import router from "/@/router"
 
 const instance = axios.create({
-  baseURL: process.env.NODE_ENV === 'development' ? '/api' : 'http://www.chrisying.cn/api',
+  baseURL: process.env.NODE_ENV === 'development' ? '/api' : 'http://chrisying.cn/chat/api',
   timeout: 5000
 })
 

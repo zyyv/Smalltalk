@@ -75,7 +75,7 @@ interface Emoji {
   display: string
 }
 function useData() {
-  const host = 'http://ql61yf5hl.hn-bkt.clouddn.com/'
+  const host = 'http://chat.chrisying.cn/'
   const emojiData: Emoji[] = emojis.map((it: Emoji) => {
     return {
       ...it,
