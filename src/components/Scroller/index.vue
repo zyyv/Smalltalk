@@ -71,10 +71,10 @@ export default defineComponent({
     }
   },
   setup(props, ctx) {
-    const wrapper = ref() // dom
+    const wrapper = ref<HTMLElement | null>(null) // dom
     const scroll = ref<null | BScrollInstance>(null) // BScroll
     nextTick(() => {
-      scroll.value = _init(wrapper.value, {
+      scroll.value = _init(wrapper.value as HTMLElement, {
         probeType: props.probeType,
         click: props.click,
         scrollX: props.scrollX,
