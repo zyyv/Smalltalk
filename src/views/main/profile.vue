@@ -119,7 +119,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive, computed } from 'vue'
-import Avatar from '/@c/Avatar.vue'
+import Avatar from '@c/Avatar.vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { httpGet } from '../../api/axios'

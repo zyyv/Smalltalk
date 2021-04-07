@@ -17,8 +17,8 @@
 <script lang='ts'>
 import { defineComponent, ref, reactive, toRefs } from 'vue'
 import { UploadOutlined } from '@ant-design/icons-vue'
-import { httpGet } from '/@/api/axios'
-import { random } from '/@/utils'
+import { httpGet } from '@/api/axios'
+import { random } from '@/utils'
 import { message } from 'ant-design-vue'
 function useUpload(ctx: any) {
   const state = reactive({

@@ -54,10 +54,10 @@
 
 <script lang='ts'>
 import { defineComponent, ref, reactive } from 'vue'
-import Avatar from '/@c/Avatar.vue'
-import Card from '/@c/Card.vue'
-import Scroller from '/@c/Scroller/index.vue'
-import { random } from '/@/utils'
+import Avatar from '@c/Avatar.vue'
+import Card from '@c/Card.vue'
+import Scroller from '@c/Scroller/index.vue'
+import { random } from '@/utils'
 import { useRouter } from 'vue-router'
 
 export default defineComponent({

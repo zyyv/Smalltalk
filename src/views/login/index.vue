@@ -72,11 +72,11 @@ import {
 import { SwapOutlined } from '@ant-design/icons-vue'
 import { useStore } from 'vuex'
 import { message } from 'ant-design-vue'
-import { UserData } from '/@/api'
-import { throttle } from '/@/utils'
-import { storageClear } from '/@/utils/auth'
-import type { Result } from '/@/api/type'
-import { Login } from '/@/api/type'
+import { UserData } from '@/api'
+import { throttle } from '@/utils'
+import { storageClear } from '@/utils/auth'
+import type { Result } from '@/api/type'
+import { Login } from '@/api/type'
 
 const phoneReg = /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/
 

@@ -98,7 +98,7 @@
 
 <script>
 import { defineComponent, ref, reactive } from 'vue'
-import Card from '/@c/Card.vue'
+import Card from '@c/Card.vue'
 import {
   TeamOutlined,
   MoreOutlined,

@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import Avatar from '/@c/Avatar.vue'
+import Avatar from '@c/Avatar.vue'
 import { defineComponent, ref, reactive } from 'vue'
 import menus from './menus'
 import { useStore } from 'vuex'

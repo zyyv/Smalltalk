@@ -52,9 +52,9 @@ import { message } from 'ant-design-vue'
 import { PlusOutlined, LoadingOutlined } from '@ant-design/icons-vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
-import { UserData } from '/@/api'
-import type { Result } from '/@/api/type'
-import Avatar from '/@c/Upload/SingleImg.vue'
+import { UserData } from '@/api'
+import type { Result } from '@/api/type'
+import Avatar from '@c/Upload/SingleImg.vue'
 
 interface Form {
   avatar: string

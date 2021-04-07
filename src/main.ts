@@ -6,7 +6,7 @@ import Antd from 'ant-design-vue'
 import VueSocketIO from 'vue-socket.io'
 import SocketIO from 'socket.io-client'
 import 'ant-design-vue/dist/antd.css'
-import '/@/styles/main.scss'
+import '@/styles/main.scss'
 
 const app = createApp(App)
 const socketConnection = SocketIO(process.env.NODE_ENV === 'development' ? 'http://localhost:9999' : 'http://chrisying.cn/chat/api',)

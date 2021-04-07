@@ -119,7 +119,7 @@
 import { defineComponent, ref, reactive, toRaw } from 'vue'
 import { useForm } from '@ant-design-vue/use'
 import { InboxOutlined } from '@ant-design/icons-vue'
-import Card from '/@c/Card.vue'
+import Card from '@c/Card.vue'
 export default defineComponent({
   name: 'group',
   components: { InboxOutlined, Card },

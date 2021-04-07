@@ -11,8 +11,8 @@
 </template>
 
 <script lang='ts'>
-import Avatar from '/@c/Avatar.vue'
-import Emoji from '/@c/Emoji/index.vue'
+import Avatar from '@c/Avatar.vue'
+import Emoji from '@c/Emoji/index.vue'
 import { defineComponent, ref, reactive, computed } from 'vue'
 import { useStore } from 'vuex'
 export default defineComponent({

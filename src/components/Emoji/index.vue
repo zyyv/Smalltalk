@@ -62,8 +62,8 @@
 
 <script lang='ts'>
 import { defineComponent, ref, reactive } from 'vue'
-import emojis from '/@/assets/json/emoji.json'
-import Scroller from '/@c/Scroller/index.vue'
+import emojis from '@/assets/json/emoji.json'
+import Scroller from '@c/Scroller/index.vue'
 
 interface Emoji {
   name: string

@@ -26,8 +26,8 @@ import {
   PlusOutlined,
   LoadingOutlined
 } from '@ant-design/icons-vue'
-import { httpGet } from '/@/api/axios'
-import { random } from '/@/utils'
+import { httpGet } from '@/api/axios'
+import { random } from '@/utils'
 
 function useUpload(ctx: any) {
   const state = reactive({

@@ -1,24 +1,32 @@
-const { resolve } = require('path')
-
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import { resolve } from 'path'
 const pathResolve = (src: string) => resolve(__dirname, src)
-
 const pathName = '/chat'
 
-module.exports = {
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [vue()],
   base: '.',
-  alias: {
-    '/@/': pathResolve('src'),
-    '/@c/': pathResolve('src/components'),
+  resolve: {
+    alias: {
+      '@': pathResolve('src'),
+      '@c': pathResolve('src/components')
+    }
   },
-  outDir: pathResolve(`../build${pathName}`),
+  build: {
+    outDir: pathResolve(`../build${pathName}`)
+  },
   optimizeDeps: {
-    include: ['ant-design-vue', '@ant-design-vue/use', '@ant-design/icons-vue', 'vue-socket.io'],
+    include: ['ant-design-vue', '@ant-design-vue/use', '@ant-design/icons-vue', 'vue-socket.io']
   },
-  proxy: {
-    '/api': {
-      target: 'http://localhost:9999/api',
-      changeOrigin: true,
-      rewrite: (path: string) => path.replace(/^\/api/, '')
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:9999/api',
+        changeOrigin: true,
+        rewrite: (path: string) => path.replace(/^\/api/, '')
+      }
     }
   }
-}
+})

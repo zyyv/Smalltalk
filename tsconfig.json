@@ -19,8 +19,8 @@
     "sourceMap": true, // 生成相应的.map文件
     "baseUrl": ".", // 解析非相对模块名的基准目录
     "paths": {
-      "/@/*": ["src/*"],
-      "/@c/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@c/*": ["src/*"]
     },
     "lib": ["Esnext", "Dom", "ScriptHost"]
   },

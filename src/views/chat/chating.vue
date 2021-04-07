@@ -95,16 +95,16 @@ import {
   getCurrentInstance,
   ComponentInternalInstance
 } from 'vue'
-import Avatar from '/@c/Avatar.vue'
+import Avatar from '@c/Avatar.vue'
 import {
   SmileOutlined,
   PaperClipOutlined,
   SendOutlined
 } from '@ant-design/icons-vue'
-import NavHeader from '/@c/NavHeader.vue'
-import Emoji from '/@c/Emoji/index.vue'
-import Scroller from '/@c/Scroller/index.vue'
-import Upload from '/@c/Upload/primary.vue'
+import NavHeader from '@c/NavHeader.vue'
+import Emoji from '@c/Emoji/index.vue'
+import Scroller from '@c/Scroller/index.vue'
+import Upload from '@c/Upload/primary.vue'
 import { useRoute, onBeforeRouteUpdate } from 'vue-router'
 
 function useIo() {

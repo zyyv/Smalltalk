@@ -1,9 +1,9 @@
-import { UserData } from "/@/api"
+import { UserData } from "@/api"
 import { message } from 'ant-design-vue'
-import router from '/@/router'
+import router from '@/router'
 import type { Module } from "vuex"
-import { UserLoginResp, Result, Login } from "/@/api/type"
-import { getToken, getUserInfo, setRemember, setToken, setUserInfo, storageClear } from "/@/utils/auth"
+import { UserLoginResp, Result, Login } from "@/api/type"
+import { getToken, getUserInfo, setRemember, setToken, setUserInfo, storageClear } from "@/utils/auth"
 
 interface State {
   token: string | null,

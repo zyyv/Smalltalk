@@ -166,7 +166,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive, computed } from 'vue'
-import Avatar from '/@c/Avatar.vue'
+import Avatar from '@c/Avatar.vue'
 import { useStore } from 'vuex'
 import { ZoneData } from '../../api'
 import { getDateByTime } from '../../utils'

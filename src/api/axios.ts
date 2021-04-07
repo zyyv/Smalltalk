@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { message } from 'ant-design-vue'
 import type { Result } from './type'
-import { getToken, removeToken } from '/@/utils/auth'
-import router from "/@/router"
+import { getToken, removeToken } from '@/utils/auth'
+import router from "@/router"
 
 const instance = axios.create({
   baseURL: process.env.NODE_ENV === 'development' ? '/api' : 'http://chrisying.cn/chat/api',
