@@ -135,7 +135,7 @@ function useSend(io: any) {
   }
   return { ...toRefs(state), handleSend, emojiSelected }
 }
-export default defineComponent({
+export default {
   name: 'chating',
   components: {
     Avatar,
@@ -151,7 +151,7 @@ export default defineComponent({
     const io = useIo()
     return { ...useChat(), ...useSend(io) }
   }
-})
+}
 </script>
 <style lang='scss' scoped>
 .chating {

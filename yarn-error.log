@@ -1,0 +1,66 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe F:\nodejs\node_global\node_modules\yarn\bin\yarn.js
+
+PATH: 
+  C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Program Files (x86)\NetSarang\Xshell 7\;C:\Program Files (x86)\NetSarang\Xftp 7\;C:\Users\ChrisZhu\AppData\Local\Microsoft\WindowsApps;C:\Users\ChrisZhu\.dotnet\tools;E:\vscode\Microsoft VS Code\bin;C:\Users\ChrisZhu\AppData\Roaming\npm;E:\mongodb\bin;E:\bindzip\;F:\nodejs\node_global;F:\python;F:\anaconda;F:\anaconda\Scripts;
+
+Yarn version: 
+  1.22.10
+
+Node version: 
+  14.15.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://github.com/jonschlinkert/micromatch: ESOCKETTIMEDOUT
+      at ClientRequest.<anonymous> (F:\nodejs\node_global\node_modules\yarn\lib\cli.js:141289:19)
+      at Object.onceWrapper (events.js:421:28)
+      at ClientRequest.emit (events.js:315:20)
+      at TLSSocket.emitRequestTimeout (_http_client.js:784:9)
+      at Object.onceWrapper (events.js:421:28)
+      at TLSSocket.emit (events.js:327:22)
+      at TLSSocket.Socket._onTimeout (net.js:483:8)
+      at listOnTimeout (internal/timers.js:554:17)
+      at processTimers (internal/timers.js:497:7)
+
+npm manifest: 
+  {
+    "name": "smalltalk",
+    "version": "0.0.1",
+    "scripts": {
+      "dev": "set NODE_ENV=development&& vite",
+      "build": "set NODE_ENV=production&& vite build"
+    },
+    "dependencies": {
+      "@better-scroll/core": "^2.0.6",
+      "@better-scroll/mouse-wheel": "^2.0.6",
+      "ant-design-vue": "^2.0.0-beta.10",
+      "axios": "^0.21.0",
+      "moment": "^2.29.1",
+      "socket.io-client": "^3.0.4",
+      "vue": "^3.0.0-rc.1",
+      "vue-router": "^4.0.0-rc.3",
+      "vue-socket.io": "^3.0.10",
+      "vuex": "^4.0.0-rc.1"
+    },
+    "devDependencies": {
+      "@typescript-eslint/eslint-plugin": "^4.9.1",
+      "@typescript-eslint/parser": "^4.9.1",
+      "@vue/compiler-sfc": "^3.0.0-rc.1",
+      "eslint": "^7.13.0",
+      "eslint-plugin-vue": "^7.2.0",
+      "prettier": "^2.1.2",
+      "prettierrc": "0.0.0-5",
+      "sass": "^1.27.0",
+      "typescript": "^4.1.2",
+      "vite": "^1.0.0-rc.1"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
