@@ -8,7 +8,7 @@
             :before-upload="beforeUpload"
             @change="handleChange">
     <div v-if="src"
-         :style="{'background-image': `url(${src})`}"
+         :style="{backgroundImage: `url(${src})`}"
          class="avatar-bg"></div>
     <div v-else>
       <loading-outlined v-if="loading" />

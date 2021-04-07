@@ -17,14 +17,14 @@
               <template #content>
                 <div @click="handleSelect(item)"
                      class="emoji-item"
-                     :style="{ 'background-image': `url(${item.hover})` }"></div>
+                     :style="{ backgroundImage: `url(${item.hover})` }"></div>
                 <div class="emoji-info">{{item.info}}</div>
               </template>
               <div @click="handleSelect(item)"
                    @touchstart="item.show=true"
                    @touchend="item.show=false"
                    class="emoji-item"
-                   :style="{ 'background-image': `url(${item.src})` }"></div>
+                   :style="{ backgroundImage: `url(${item.src})` }"></div>
             </a-popover>
           </template>
           <template v-else

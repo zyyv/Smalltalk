@@ -2,7 +2,7 @@
   <div class="avatar"
        :style="style"
        :class="online ? 'online' : ''">
-    <div :style="{ 'border-radius': radius, 'background-image': `url(${src})` }"></div>
+    <div :style="{ borderRadius: radius, backgroundImage: `url(${src})` }"></div>
   </div>
 </template>
 
