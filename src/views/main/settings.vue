@@ -13,7 +13,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, reactive, toRefs } from 'vue'
+import { defineComponent, reactive, toRefs } from 'vue'
 import NavHeader from '@c/NavHeader.vue'
 import Upload from '@c/Upload/index.vue'
 import Upload2 from '@c/Upload/SingleImg.vue'

@@ -11,7 +11,6 @@
                      :key="menu.path"
                      :to="menu.path"
                      custom
-                     exact
                      v-slot="{navigate, isExactActive}">
           <div class="item"
                @click="navigate"
@@ -37,7 +36,7 @@
 
 <script>
 import Avatar from '@c/Avatar.vue'
-import { defineComponent, ref, reactive } from 'vue'
+import { defineComponent } from 'vue'
 import menus from './menus'
 import { useStore } from 'vuex'
 export default defineComponent({

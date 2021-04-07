@@ -21,8 +21,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, reactive, toRefs, watchEffect } from 'vue'
-import { message } from 'ant-design-vue'
+import { defineComponent, ref, reactive } from 'vue'
 import { InboxOutlined } from '@ant-design/icons-vue'
 import { httpGet } from '../../api/axios'
 import { random } from '@/utils'

@@ -248,7 +248,14 @@ h6,
 
 .f-pwd,
 .f-smsCode {
+  padding: 0;
+  background-color: rgb(237, 238, 246) !important;
+  border-radius: 0.475rem;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
   input {
+    padding: 1.4rem 1.25rem !important;
     height: calc(1.6em + 2.5rem + 2px);
     transition: border-color 0.15s ease-in-out 0s,
       box-shadow 0.15s ease-in-out 0s, -webkit-box-shadow 0.15s ease-in-out 0s;
@@ -269,10 +276,6 @@ h6,
 .f-smsCode {
   position: relative;
 
-  >input {
-    padding-right: 12rem !important;
-  }
-
   .ant-input-suffix {
     position: absolute;
     top: 0;
@@ -289,6 +292,9 @@ h6,
       color: #242939;
     }
   }
+}
+.f-pwd{
+  padding-right: 1.25rem;
 }
 
 .f-upload {

@@ -7,7 +7,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, reactive, computed } from 'vue'
+import { defineComponent, computed } from 'vue'
 export default defineComponent({
   name: 'avatar',
   props: {

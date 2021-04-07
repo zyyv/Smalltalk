@@ -22,7 +22,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, reactive } from 'vue'
+import { defineComponent } from 'vue'
 import { LeftOutlined } from '@ant-design/icons-vue'
 import { useRouter } from 'vue-router'
 export default defineComponent({

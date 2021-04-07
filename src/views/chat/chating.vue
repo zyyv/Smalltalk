@@ -86,15 +86,7 @@
   </div>
 </template>
 <script lang='ts'>
-import {
-  defineComponent,
-  ref,
-  reactive,
-  toRefs,
-  watchEffect,
-  getCurrentInstance,
-  ComponentInternalInstance
-} from 'vue'
+import { reactive, toRefs, getCurrentInstance } from 'vue'
 import Avatar from '@c/Avatar.vue'
 import {
   SmileOutlined,
@@ -105,7 +97,7 @@ import NavHeader from '@c/NavHeader.vue'
 import Emoji from '@c/Emoji/index.vue'
 import Scroller from '@c/Scroller/index.vue'
 import Upload from '@c/Upload/primary.vue'
-import { useRoute, onBeforeRouteUpdate } from 'vue-router'
+import { useRoute } from 'vue-router'
 
 function useIo() {
   const { ctx }: any = getCurrentInstance()

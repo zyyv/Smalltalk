@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { defineComponent, ref, reactive } from 'vue'
+import { defineComponent } from 'vue'
 import Avatar from './Avatar.vue'
 export default defineComponent({
   name: 'card',

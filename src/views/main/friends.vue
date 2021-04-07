@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import { defineComponent, ref, reactive } from 'vue'
+import { defineComponent, reactive } from 'vue'
 import Card from '@c/Card.vue'
 import {
   TeamOutlined,
