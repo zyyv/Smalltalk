@@ -1,17 +1,29 @@
 <template>
   <div class="chating">
-    <NavHeader class="head"
-               :title="name || 'Chris'" />
+    <!-- <NavHeader class="head"
+               :title="name || 'Chris'" /> -->
+    <NavHeader class="head">
+      <div class="headTitle">
+        <Avatar class="avatar"
+                :online="true"
+                src="https://himg.bdimg.com/sys/portraitn/item/89c7456e646c657373746561726c9c89" />
+        <h6 class="title ellipsis">{{name}}</h6>
+      </div>
+    </NavHeader>
     <div class="body">
       <Scroller class="scroll-wrapper">
         <div class="messageList">
-          <template v-for="i in 10"
-                    :key="i">
-            <div class="messageItem notme">
+          <template v-for="item in messageList"
+                    :key="item._id">
+            <div class="messageItem"
+                 :class="item.user">
+              <div class="messageBody">{{item.msg}}</div>
+            </div>
+            <!-- <div class="messageItem notme">
               <div>
                 <Avatar class="avatar"
                         :online="false"
-                        src="http://ql61yf5hl.hn-bkt.clouddn.com/1608021828527-8669.jfif" />
+                        src="https://himg.bdimg.com/sys/portraitn/item/89c7456e646c657373746561726c9c89" />
               </div>
               <div class="messageBody">明天约吗？</div>
             </div>
@@ -19,10 +31,10 @@
               <div>
                 <Avatar class="avatar"
                         :online="false"
-                        src="http://ql61yf5hl.hn-bkt.clouddn.com/1608021828527-8669.jfif" />
+                        src="https://himg.bdimg.com/sys/portraitn/item/89c7456e646c657373746561726c9c89" />
               </div>
               <div class="messageBody">明天约吗？</div>
-            </div>
+            </div> -->
           </template>
         </div>
       </Scroller>
@@ -98,6 +110,7 @@ import Emoji from '@c/Emoji/index.vue'
 import Scroller from '@c/Scroller/index.vue'
 import Upload from '@c/Upload/primary.vue'
 import { useRoute } from 'vue-router'
+import { log } from 'node:console'
 
 function useIo() {
   const { ctx }: any = getCurrentInstance()
@@ -113,13 +126,28 @@ function useChat() {
   state.name = chatId as string
   return { ...toRefs(state) }
 }
-function useSend(io: any) {
+function useSend(io: any, messageList: any[]) {
   const state = reactive({
     msg: ''
+  })
+  io.on('msg', (data: any) => {
+    debugger
+    console.log(data);
+    
+    messageList.push({
+      _id: Math.random().toString().substring(2, 6),
+      msg: data.msg,
+      user: 'notme'
+    })
   })
   const handleSend = () => {
     if (!state.msg) return
     io.emit('msg', { msg: state.msg })
+    messageList.push({
+      _id: Math.random().toString().substring(2, 6),
+      msg: state.msg,
+      user: 'me'
+    })
     state.msg = ''
   }
   const emojiSelected = (item: any) => {
@@ -140,8 +168,27 @@ export default {
     Scroller
   },
   setup() {
+    const state = reactive({
+      messageList: [
+        {
+          _id: Math.random().toString().substring(2, 6),
+          msg: '1111',
+          user: 'notme'
+        },
+        {
+          _id: Math.random().toString().substring(2, 6),
+          msg: '2222222',
+          user: 'notme'
+        },
+        {
+          _id: Math.random().toString().substring(2, 6),
+          msg: '3333333',
+          user: 'me'
+        }
+      ]
+    })
     const io = useIo()
-    return { ...useChat(), ...useSend(io) }
+    return { ...useChat(), ...useSend(io, state.messageList), ...toRefs(state) }
   }
 }
 </script>
@@ -153,11 +200,18 @@ export default {
   flex-direction: column;
   > .head {
     order: 1;
+    .headTitle {
+      display: flex;
+      align-items: center;
+      .title {
+        margin-left: 1rem;
+      }
+    }
   }
   > .body {
     flex: 1;
     order: 1;
-    padding: 1.25rem 1.5rem;
+    padding: 0 1.5rem;
     overflow: hidden auto;
     &::-webkit-scrollbar {
       display: none;
@@ -171,10 +225,10 @@ export default {
         .messageItem {
           display: flex;
           align-items: flex-end;
-          margin-bottom: 2rem;
-          &:last-child {
-            margin-bottom: 0;
-          }
+          padding: 1rem 0;
+          // &:last-child {
+          //   margin-bottom: 0;
+          // }
           &.notme {
             .messageBody {
               margin-left: 1.5rem;

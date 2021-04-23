@@ -7,7 +7,7 @@ const pathName = '/chat'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
-  base: '.',
+  // base: '.',
   resolve: {
     alias: {
       '@': pathResolve('src'),
