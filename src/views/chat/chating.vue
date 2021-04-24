@@ -98,7 +98,7 @@
   </div>
 </template>
 <script lang='ts'>
-import { reactive, toRefs, getCurrentInstance } from 'vue'
+import { reactive, toRefs } from 'vue'
 import Avatar from '@c/Avatar.vue'
 import {
   SmileOutlined,
@@ -110,13 +110,8 @@ import Emoji from '@c/Emoji/index.vue'
 import Scroller from '@c/Scroller/index.vue'
 import Upload from '@c/Upload/primary.vue'
 import { useRoute } from 'vue-router'
-import { log } from 'node:console'
+import { useSocket } from '@/utils/hooks'
 
-function useIo() {
-  const { ctx }: any = getCurrentInstance()
-  const io = ctx.$socket.io
-  return io
-}
 function useChat() {
   const state = reactive({
     name: ''
@@ -126,23 +121,14 @@ function useChat() {
   state.name = chatId as string
   return { ...toRefs(state) }
 }
-function useSend(io: any, messageList: any[]) {
+function useSend(socket: SocketIOClient.Socket, messageList: any[]) {
   const state = reactive({
     msg: ''
   })
-  io.on('msg', (data: any) => {
-    debugger
-    console.log(data);
-    
-    messageList.push({
-      _id: Math.random().toString().substring(2, 6),
-      msg: data.msg,
-      user: 'notme'
-    })
-  })
+
   const handleSend = () => {
     if (!state.msg) return
-    io.emit('msg', { msg: state.msg })
+    socket.emit('msg', { msg: state.msg })
     messageList.push({
       _id: Math.random().toString().substring(2, 6),
       msg: state.msg,
@@ -187,8 +173,21 @@ export default {
         }
       ]
     })
-    const io = useIo()
-    return { ...useChat(), ...useSend(io, state.messageList), ...toRefs(state) }
+    const socket = useSocket()
+    socket.on('msg', (data: any) => {
+      console.log(data)
+      state.messageList.push({
+        _id: Math.random().toString().substring(2, 6),
+        msg: data.msg,
+        user: 'notme'
+      })
+    })
+
+    return {
+      ...useChat(),
+      ...useSend(socket, state.messageList),
+      ...toRefs(state)
+    }
   }
 }
 </script>
