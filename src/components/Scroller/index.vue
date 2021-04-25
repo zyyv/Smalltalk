@@ -60,7 +60,7 @@ export default defineComponent({
      */
     data: {
       type: Array,
-      default: null
+      default: []
     },
     /**
      * 当数据更新后，刷新scroll的延时。

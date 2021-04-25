@@ -2,7 +2,7 @@ import { UserData } from "@/api"
 import { message } from 'ant-design-vue'
 import router from '@/router'
 import type { Module } from "vuex"
-import { UserLoginResp, Result, Login } from "@/api/type"
+import { UserLoginResp, Result, ILogin } from "@/api/type"
 import { getToken, getUserInfo, setRemember, setToken, setUserInfo, storageClear } from "@/utils/auth"
 
 interface State {
@@ -27,14 +27,22 @@ const user: Module<State, any> = {
     }
   },
   actions: {
-    async login({ commit }, data: Login) {
+    async login({ commit }, data: ILogin) {
       return new Promise((resolve, reject) => {
-        UserData.login(data).then((res: Result<UserLoginResp>) => {
-          setRemember(data.remember ? 1 : 0) // 记住我
+        UserData.login(data.form).then((res: Result<UserLoginResp>) => {
+          setRemember(data.form.remember ? 1 : 0) // 记住我
           if (res.data) {
             commit('setToken', res.data.token)
             commit('setUserInfo', res.data.userInfo)
             message.success('登录成功')
+
+            // socket 通知 该用户已上线
+            const onlineInfo = {
+              token: res.data.token,
+              userInfo: res.data.userInfo
+            }
+            data.cb && data.cb(onlineInfo)
+
             setTimeout(() => {
               if (res.data && res.data.userInfo.isnew) {
                 router.replace('/update')

@@ -60,24 +60,15 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  ref,
-  reactive,
-  toRaw,
-  onBeforeUnmount,
-  toRef,
-  Ref
-} from 'vue'
+import { ref, reactive, toRaw, onBeforeUnmount, toRef, Ref } from 'vue'
 import { SwapOutlined } from '@ant-design/icons-vue'
 import { useStore } from 'vuex'
 import { message } from 'ant-design-vue'
 import { UserData } from '@/api'
 import { throttle } from '@/utils'
 import { storageClear } from '@/utils/auth'
-import type { Result } from '@/api/type'
-import { Login } from '@/api/type'
-
+import type { Result, Login, ILogin } from '@/api/type'
+import { useSocket } from '@/utils/hooks'
 const phoneReg = /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/
 
 function useSmscode(num: number, phone: Ref<string>) {
@@ -168,7 +159,7 @@ function useLogin() {
   }
 }
 
-export default defineComponent({
+export default {
   name: 'login',
   components: { SwapOutlined },
   setup() {
@@ -179,7 +170,12 @@ export default defineComponent({
     })
     const store = useStore()
     const { form, handleSubmit, ...rest } = useLogin()
-    const login = async (form: Login) => store.dispatch('user/login', form)
+    const socket = useSocket()
+    const handleOnline = (info: any) => {
+      socket.emit('login', info)
+    }
+    const login = async (form: Login) =>
+      store.dispatch('user/login', { form, cb: handleOnline } as ILogin)
     const Submit = () => {
       handleSubmit(login)
     }
@@ -191,7 +187,7 @@ export default defineComponent({
       ...useSmscode(30, toRef(form, 'phone'))
     }
   }
-})
+}
 </script>
 <style lang="scss" scoped>
 .login {

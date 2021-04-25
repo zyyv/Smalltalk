@@ -27,8 +27,8 @@
               :key="i">
             <Avatar width="4.4rem"
                     height="4.4rem"
-                    :online="user.status === 'online'"
-                    src="https://himg.bdimg.com/sys/portraitn/item/89c7456e646c657373746561726c9c89" />
+                    online
+                    :src="user.avatar" />
             <p class="user-name ellipsis">{{user.name}}</p>
           </li>
         </ul>
@@ -53,111 +53,50 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, reactive } from 'vue'
+import { reactive, toRefs } from 'vue'
 import Avatar from '@c/Avatar.vue'
 import Card from '@c/Card.vue'
 import Scroller from '@c/Scroller/index.vue'
 import { random } from '@/utils'
 import { useRouter } from 'vue-router'
+import { useSocket } from '@/utils/hooks'
+import { getToken } from '@/utils/auth'
 
-export default defineComponent({
+export default {
   name: 'chats',
   components: { Avatar, Card, Scroller },
   setup() {
-    const peoples = reactive([
-      { name: 'william', status: 'online' },
-      { name: 'william2', status: 'online' },
-      { name: 'william5', status: 'online' },
-      { name: 'william1william1', status: 'Offline' },
-      { name: 'william3', status: 'Offline' },
-      { name: 'william4', status: 'Offline' },
-      { name: 'william5', status: 'online' },
-      { name: 'william1william1', status: 'Offline' },
-      { name: 'william3', status: 'Offline' },
-      { name: 'william4', status: 'Offline' }
-    ])
-    const msgList = reactive([
-      {
-        name: 'Chris Borwd',
-        time: '06:00 am',
-        notify: random(5, 0),
-        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
-      },
-      {
-        name: 'Alice',
-        time: '06:00 am',
-        notify: random(5, 0),
-        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
-      },
-      {
-        name: 'Bob',
-        time: '06:00 am',
-        notify: random(5, 0),
-        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
-      },
-      {
-        name: 'Candy',
-        time: '06:00 am',
-        notify: random(5, 0),
-        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
-      },
-      {
-        name: 'Chris Borwd',
-        time: '06:00 am',
-        notify: random(5, 0),
-        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
-      },
-      {
-        name: 'Alice',
-        time: '06:00 am',
-        notify: random(5, 0),
-        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
-      },
-      {
-        name: 'Bob',
-        time: '06:00 am',
-        notify: random(5, 0),
-        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
-      },
-      {
-        name: 'Candy',
-        time: '06:00 am',
-        notify: random(5, 0),
-        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
-      },
-      {
-        name: 'Chris Borwd',
-        time: '06:00 am',
-        notify: random(5, 0),
-        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
-      },
-      {
-        name: 'Alice',
-        time: '06:00 am',
-        notify: random(5, 0),
-        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
-      },
-      {
-        name: 'Bob',
-        time: '06:00 am',
-        notify: random(5, 0),
-        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
-      },
-      {
-        name: 'Candy',
-        time: '06:00 am',
-        notify: random(5, 0),
-        msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
-      }
-    ])
+    const socket = useSocket()
+    const state = reactive<{
+      peoples: any
+      msgList: any
+    }>({
+      peoples: [],
+      msgList: [
+        {
+          name: 'Chris Borwd',
+          time: '06:00 am',
+          notify: random(5, 0),
+          msg: `Anna Bridges: Hey, Maher! How are you? The weather is great isn't it?`
+        }
+      ]
+    })
+    socket.emit('users', getToken())
+    socket.on('users', (users: any) => {
+      state.peoples = users
+      socket.on('userin', (user: any) => {
+        state.peoples.push(user)
+      })
+    })
+
     const router = useRouter()
     const chatClick = (name: string) => {
       console.log(name)
       router.push(`/chating/${name}`)
     }
-    return { peoples, chatClick, msgList }
+    return { ...toRefs(state), chatClick }
   }
-})
+}
 </script>
 <style lang='scss' scoped>
 .chats {
@@ -177,6 +116,7 @@ export default defineComponent({
         margin: 0;
         display: inline-block;
         .user {
+          cursor: pointer;
           display: inline-flex;
           width: 4.8rem;
           flex-direction: column;

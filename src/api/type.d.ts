@@ -28,3 +28,7 @@ export interface PostLike {
   postId: string
 }
 
+export interface ILogin {
+  form: Login,
+  cb?: (info: any) => void
+}

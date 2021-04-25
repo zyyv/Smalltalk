@@ -18,7 +18,7 @@ export default defineConfig({
     outDir: pathResolve(`../build${pathName}`)
   },
   optimizeDeps: {
-    include: ['ant-design-vue', '@ant-design-vue/use', '@ant-design/icons-vue', 'vue-socket.io']
+    include: ['ant-design-vue', '@ant-design-vue/use', '@ant-design/icons-vue']
   },
   server: {
     proxy: {
