@@ -1,5 +1,5 @@
-export interface obj {
-  [key: string]: any
+export interface IObj<T = any> {
+  [key: string]: T
 }
 
 export interface Result<T = any> {
@@ -8,7 +8,7 @@ export interface Result<T = any> {
   status: number;
 }
 
-export interface UserLoginResp<T = obj> {
+export interface UserLoginResp<T = IObj> {
   token: string;
   userInfo: T;
 }

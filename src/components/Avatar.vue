@@ -6,46 +6,39 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, computed } from 'vue'
-export default defineComponent({
-  name: 'avatar',
-  props: {
-    src: String,
-    online: {
-      type: Boolean,
-      default: true
-    },
-    radius: {
-      type: String,
-      default: '50%'
-    },
-    width: {
-      type: [Number, String],
-      default: '4.4rem'
-    },
-    height: {
-      type: [Number, String],
-      default: '4.4rem'
-    }
-  },
-  setup(props) {
-    const isDef = (val: any) => val !== undefined && val !== null
-    const isNumeric = (val: any) => /^\d+(\.\d+)?$/.test(val)
-    const addUnit = (val: any) => {
-      if (!isDef(val)) {
-        return undefined
-      }
-      val = String(val)
-      return isNumeric(val) ? val + 'px' : val
-    }
-    const style = computed(() => ({
-      width: addUnit(props.width),
-      height: addUnit(props.height)
-    }))
-    return { style }
+<script lang='ts' setup>
+import { computed, defineProps, PropType } from 'vue'
+
+const props = defineProps(
+  {
+    src: { type: Object as PropType(string) },
+    online: {type: Object as PropType(boolean),default:true},
+    radius: {type: Object as PropType(string),default:'50%'},
+    width: {type: Object as PropType(number | string),default:'4.4rem'},
+    height: {type: Object as PropType(number | string),default:'4.4rem'}
   }
-})
+)
+props.src
+// {
+//   src: '',
+//   online: true,
+//   radius: '50%',
+//   width: '4.4rem',
+//   height: '4.4rem'
+// }
+const isDef = (val: any) => val !== undefined && val !== null
+const isNumeric = (val: any) => /^\d+(\.\d+)?$/.test(val)
+const addUnit = (val: any) => {
+  if (!isDef(val)) {
+    return undefined
+  }
+  val = String(val)
+  return isNumeric(val) ? val + 'px' : val
+}
+const style = computed(() => ({
+  width: addUnit(props.width),
+  height: addUnit(props.height)
+}))
 </script>
 <style lang='scss' scoped>
 .avatar {

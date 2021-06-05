@@ -2,14 +2,10 @@
   <router-view />
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { getDeviceType } from './utils'
 import { useStore } from 'vuex'
-export default {
-  name: 'App',
-  setup() {
-    const store = useStore()
-    store.commit('setDeivce', getDeviceType())
-  }
-}
+
+const store = useStore()
+store.commit('setDeivce', getDeviceType())
 </script>

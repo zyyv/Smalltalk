@@ -21,5 +21,5 @@ export const ZoneData = {
   },
   disliked: async (data: PostLike) => {
     return httpPost('/zone/disliked', data)
-  },
+  }
 }

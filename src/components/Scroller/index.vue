@@ -5,7 +5,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, reactive, nextTick, watch } from 'vue'
+import { defineComponent, ref, nextTick, watch } from 'vue'
 import BScroll, { BScrollInstance, Options } from '@better-scroll/core'
 import MouseWheel from '@better-scroll/mouse-wheel'
 BScroll.use(MouseWheel)

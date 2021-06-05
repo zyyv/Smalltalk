@@ -12,7 +12,6 @@ const instance = axios.create({
 // 设置post请求头
 instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
-// 添加请求拦截器
 instance.interceptors.request.use(
   config => {
     const token = getToken()
@@ -24,7 +23,6 @@ instance.interceptors.request.use(
   }
 )
 
-// 添加响应拦截器
 instance.interceptors.response.use(
   res => {
     if (res.data && res.data.status === 200) {
@@ -61,22 +59,6 @@ instance.interceptors.response.use(
   }
 )
 
-export function httpGet(url: string, params = {}): Promise<Result> {
-  return new Promise((resolve, reject) => {
-    instance.get(url, { params }).then(res => {
-      resolve(res.data)
-    }).catch(err => {
-      reject(err)
-    })
-  })
-}
-
-export function httpPost(url: string, data = {}): Promise<Result> {
-  return new Promise((resolve, reject) => {
-    instance.post(url, data).then(res => {
-      resolve(res.data)
-    }, err => { reject(err) })
-  })
-}
-
+export const httpGet = <T = any>(url: string, params = {}): Promise<Result<T>> => instance.get(url, { params }).then(res => res.data)
+export const httpPost = <T = any>(url: string, data = {}): Promise<Result<T>> => instance.post(url, data).then(res => res.data)
 export default instance
