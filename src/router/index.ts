@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import { getToken } from '@/utils/auth'
+import CancelToken from '@/api/CancelToken'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -42,6 +43,9 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  // 路由跳转要清除之前所有的请求缓存
+  CancelToken.clearPending()
+
   const hasToken = getToken()
   if (hasToken) {
     if (to.fullPath === '/login') {

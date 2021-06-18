@@ -1,11 +1,15 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
+import CancelToken from "./CancelToken"
 import { message } from 'ant-design-vue'
 import type { Result } from './type'
 import { getToken, removeToken } from '@/utils/auth'
 import router from "@/router"
 
+// const baseURL = process.env.NODE_ENV === 'development' ? '/api' : 'http://chrisying.cn/chat/api'
+const baseURL = 'http://chrisying.cn/chat/api'
+
 const instance = axios.create({
-  baseURL: process.env.NODE_ENV === 'development' ? '/api' : 'http://chrisying.cn/chat/api',
+  baseURL,
   timeout: 5000
 })
 
@@ -14,6 +18,11 @@ instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlenco
 
 instance.interceptors.request.use(
   config => {
+    // 请求开始前，检查一下是否已经有该请求了，有则取消掉该请求
+    CancelToken.removePending(config)
+    // 把当成请求添加进去
+    CancelToken.addPending(config)
+    
     const token = getToken()
     token && (config.headers.Authorization = `Bearer ${token}`)
     return config
@@ -24,11 +33,12 @@ instance.interceptors.request.use(
 )
 
 instance.interceptors.response.use(
-  res => {
-    if (res.data && res.data.status === 200) {
+  (res: AxiosResponse<Result>) => {
+    const { data } = res
+    if (res.status === 200 && data.status === 200) {
       return Promise.resolve(res)
     } else {
-      message.error(res.data.msg)
+      message.error(data.msg)
       return Promise.reject(res)
     }
   },
@@ -59,6 +69,38 @@ instance.interceptors.response.use(
   }
 )
 
-export const httpGet = <T = any>(url: string, params = {}): Promise<Result<T>> => instance.get(url, { params }).then(res => res.data)
-export const httpPost = <T = any>(url: string, data = {}): Promise<Result<T>> => instance.post(url, data).then(res => res.data)
+const createRequest = (methods: 'get' | 'post') => {
+  const requset = instance[methods]
+  return async function <T = any>(url: string, data = {}) {
+    try {
+      const { data: result } = await requset<Result<T>>(url, createPayload(methods, data))
+      return result
+    } catch (err) {
+      if (err instanceof Error) {
+        return Promise.reject(err.message)
+      }
+      return Promise.reject(err.data)
+    }
+  }
+}
+
+const createPayload = (methods: 'get' | 'post', data = {}) => {
+  let payload
+  if (methods === 'get') {
+    payload = {
+      params: data
+    }
+  } else {
+    payload = data
+  }
+
+  return payload
+}
+
+export const httpGet = createRequest('get')
+
+export const httpPost = createRequest('post')
+
+
+
 export default instance

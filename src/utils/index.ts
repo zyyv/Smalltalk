@@ -81,8 +81,18 @@ export function throttle(handler: Function, wait: number) {
  */
 export const toSmallTF = (path: string) => path.replace(/\/(\w)/g, (a, b) => b.toUpperCase())
 
+/**
+ * 获取区间随机数
+ * @param max 最大值 默认1
+ * @param min 最小值 默认0
+ * @returns 
+ */
 export const random = (max = 1, min = 0) => Math.floor(Math.random() * (max - min) + min)
 
+/**
+ * 获取设备类型
+ * @returns 'phone' | 'pc'
+ */
 export function getDeviceType() {
   const sUserAgent = navigator.userAgent.toLowerCase()
   const bIsIpad = sUserAgent.match(/ipad/i)
@@ -98,4 +108,23 @@ export function getDeviceType() {
   } else {
     return "pc"
   }
+}
+
+/** 是否有定义 */
+export const isDef = (val: any) => val !== undefined && val !== null
+
+/** 是否是数字 */
+export const isNumeric = (val: any) => /^\d+(\.\d+)?$/.test(val)
+
+/**
+ * 添加单位。数字添加单位 string直接返回
+ * @param val 
+ * @returns isNumeric(val) ? val + 'px' : val
+ */
+export const addUnit = (val: any) => {
+  if (!isDef(val)) {
+    return undefined
+  }
+  val = String(val)
+  return isNumeric(val) ? val + 'px' : val
 }
