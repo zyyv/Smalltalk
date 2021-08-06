@@ -122,7 +122,6 @@ import { defineComponent, computed } from 'vue'
 import Avatar from '@c/Avatar.vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-import { httpGet } from '../../api/axios'
 export default defineComponent({
   name: 'profile',
   components: { Avatar },

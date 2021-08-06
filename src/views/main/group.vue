@@ -115,7 +115,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, ref, reactive, toRaw } from 'vue'
 import { useForm } from '@ant-design-vue/use'
 import { InboxOutlined } from '@ant-design/icons-vue'

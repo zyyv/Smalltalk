@@ -3,71 +3,72 @@
     <div class="content">
       <h2 class="title">Friends</h2>
       <div class="input-group">
-        <input placeholder="Search for messages or users..."
-               type="text" />
+        <input placeholder="Search for messages or users..." type="text" />
         <div>
-          <svg width="1em"
-               height="1em"
-               viewBox="0 0 16 16"
-               class="bi bi-search"
-               fill="currentColor"
-               xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-                  d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
-            <path fill-rule="evenodd"
-                  d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+          <svg
+            class="bi bi-search"
+            width="1em"
+            height="1em"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"
+            />
+            <path
+              fill-rule="evenodd"
+              d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"
+            />
           </svg>
         </div>
       </div>
-      <a-button @click="modalRef.status = true"
-                class="invite"
-                block>
+      <a-button class="invite" @click="modalRef.status = true" block>
         <h6>Invite friends</h6>
-        <TeamOutlined style="font-size: 16px" />
+        <TeamOutlined style="font-size: 16px"></TeamOutlined>
       </a-button>
       <div class="contacter">
         <div class="name-group">
           <div class="name-title">A</div>
-          <Card class="name-card"
-                v-for="item in 3"
-                :key="item">
+          <Card class="name-card" v-for="item in 3" :key="item">
             <div class="body">
               <h6 class="name">Chris Brwon</h6>
               <p class="info">Online</p>
             </div>
             <template v-slot:right>
-              <a-tooltip overlayClassName="friendTooltip"
-                         trigger="click"
-                         placement="bottomRight">
+              <a-tooltip overlayClassName="friendTooltip" trigger="click" placement="bottomRight">
                 <template v-slot:title>
                   <ul class="menus">
                     <li class="menu">
                       <span>New Chat</span>
-                      <EditOutlined />
+                      <EditOutlined></EditOutlined>
                     </li>
                     <li class="menu">
                       <span>Delete</span>
-                      <DeleteOutlined />
+                      <DeleteOutlined></DeleteOutlined>
                     </li>
                   </ul>
                 </template>
-                <MoreOutlined />
+                <MoreOutlined></MoreOutlined>
               </a-tooltip>
             </template>
           </Card>
         </div>
       </div>
     </div>
-    <a-modal width="500px"
-             centered
-             :footer="null"
-             v-model:visible="modalRef.status"
-             :confirm-loading="modalRef.btnLoading"
-             @ok="handleOk">
+    <a-modal
+      width="500px"
+      centered
+      :footer="null"
+      v-model:visible="modalRef.status"
+      :confirm-loading="modalRef.btnLoading"
+      @ok="handleOk"
+    >
       <template v-slot:title>
         <div class="title-box">
           <div class="icon">
-            <TeamOutlined style="font-size: 16px; color: #fff" />
+            <TeamOutlined style="font-size: 16px; color: #fff"></TeamOutlined>
           </div>
           <div class="text">
             <h5>Invite friends</h5>
@@ -77,26 +78,25 @@
       </template>
       <a-form layout="vertical">
         <a-form-item label="Email">
-          <a-input class="f-input"
-                   v-model:value="modelRef.email" />
+          <a-input class="f-input" v-model:value="modelRef.email"></a-input>
         </a-form-item>
         <a-form-item label="Invitation message">
-          <a-textarea class="f-textarea"
-                      v-model:value="modelRef.description"
-                      :auto-size="{ minRows: 2, maxRows: 4 }" />
+          <a-textarea
+            class="f-textarea"
+            v-model:value="modelRef.description"
+            :auto-size="{ minRows: 2, maxRows: 4 }"
+          ></a-textarea>
         </a-form-item>
       </a-form>
-      <a-button type="primary"
-                class="submitBtn"
-                block>
+      <a-button class="submitBtn" type="primary" block>
         <h6>Invite friends</h6>
-        <TeamOutlined style="font-size: 1.6rem" />
+        <TeamOutlined style="font-size: 1.6rem"></TeamOutlined>
       </a-button>
     </a-modal>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, reactive } from 'vue'
 import Card from '@c/Card.vue'
 import {
@@ -123,7 +123,7 @@ export default defineComponent({
       email: '',
       description: ''
     })
-    const handleOk = () => {}
+    const handleOk = () => { }
     return { modalRef, modelRef, handleOk }
   }
 })
